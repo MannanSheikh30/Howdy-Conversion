@@ -1,0 +1,2400 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Howdy</title>
+  <style>
+    :root {
+      --bg-cream: #f7f0e7;
+      --bg-yellow: #fbc10c;
+      --bg-black: #0b0b0b;
+      --bg-red: #e21c2a;
+      --text-black: #000;
+      --text-white: #fff;
+      --max: 1440px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      --stroke: rgba(0, 0, 0, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: #fff;
+      color: var(--text-black);
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ---------- Scroll Reveal ---------- */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+        opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: var(--d, 0ms);
+      will-change: opacity, transform;
+    }
+
+    [data-reveal].in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    .font-mind {
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .font-rustler {
+      font-family: "Rustler", "Rustler:Regular", Georgia, "Times New Roman", serif;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 70px;
+    }
+
+    @media (max-width: 980px) {
+      .wrap {
+        padding: 0 18px;
+      }
+    }
+
+    /* ---------- Placeholders ---------- */
+    .ph {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.1)),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.35) 0 8px, rgba(255, 255, 255, 0.15) 8px 16px);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ph::after {
+      content: "IMAGE";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.16em;
+    }
+
+    .ph.round {
+      border-radius: 999px;
+    }
+
+    .ph.sq {
+      border-radius: 0;
+    }
+
+    /* ---------- Header ---------- */
+    .topbar {
+      background: transparent;
+      color: #fff;
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .topbar .bar {
+      height: 72px;
+      background: rgba(11, 11, 11, 0.92);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      padding: 0 18px;
+      overflow: visible;
+      pointer-events: auto;
+    }
+
+    .topbar .inner {
+      height: 72px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      opacity: 0.95;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .nav .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--bg-yellow);
+      color: #000;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 999px;
+      background: var(--bg-yellow);
+      box-shadow: 0 0 0 4px rgba(251, 193, 12, 0.25);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      color: #000;
+      overflow: hidden;
+      z-index: 2;
+      margin-top: -22px;
+      margin-bottom: -22px;
+    }
+
+    .logo img {
+      width: 86%;
+      height: 86%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    @media (max-width: 980px) {
+      .nav {
+        gap: 12px;
+        font-size: 10px;
+        overflow: hidden;
+      }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      height: 590px;
+      background: #231a14;
+      overflow: hidden;
+    }
+
+    .hero .bg {
+      position: absolute;
+      inset: -40px;
+      filter: blur(0px);
+      opacity: 0.95;
+      border-radius: 0;
+    }
+
+    .hero video.bg {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 1;
+      filter: none;
+    }
+
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.78) 100%);
+    }
+
+    .hero .content {
+      position: relative;
+      height: 100%;
+      display: grid;
+      align-items: end;
+      justify-items: start;
+      text-align: left;
+    }
+
+    .hero .content>.wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding-bottom: 50px;
+    }
+
+    .hero .stack {
+      max-width: 680px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 0.95;
+      font-size: 58px;
+      letter-spacing: -0.03em;
+      text-shadow: 0 10px 50px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero h1 span {
+      display: block;
+    }
+
+    .hero .cta {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        height: 550px;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+    }
+
+    /* ---------- Marquee ---------- */
+    .marquee {
+      background: var(--bg-black);
+      color: #fff;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .marquee .track {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      white-space: nowrap;
+      animation: scroll 18s linear infinite;
+      padding-left: 22px;
+    }
+
+    .marquee .item {
+      display: inline-flex;
+      gap: 18px;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .marquee .arrow {
+      opacity: 0.8;
+      font-weight: 900;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ---------- New menu cards ---------- */
+    .menu-strip {
+      background: var(--bg-cream);
+      padding: 36px 0 54px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 0;
+      background: #fff;
+      border: 0;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      overflow: hidden;
+      padding: 12px;
+      isolation: isolate;
+      transform: translateY(0);
+      transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 0;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card .thumb {
+      overflow: hidden;
+      position: relative;
+      height: 250px;
+      border-radius: 0;
+      border: 0;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      background: #fff;
+      transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      transform: scale(1);
+      transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), filter 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+    }
+
+    .card .head {
+      background: transparent;
+      padding: 10px 2px 2px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      margin: 2px 0 0;
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.35;
+    }
+
+    .btn-red {
+      position: relative;
+      overflow: hidden;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #f02332 0%, #d91522 100%);
+      color: #fff;
+      border: 0;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      text-transform: uppercase;
+      width: 100%;
+      box-shadow: 0 10px 18px rgba(226, 28, 42, 0.18);
+      transform: translateY(0);
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        filter 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-red::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.3) 45%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      pointer-events: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+        filter: saturate(1.02);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .card:hover .thumb {
+        transform: translateY(-2px);
+      }
+
+      .card:hover .thumb img {
+        transform: scale(1.08);
+        filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.12));
+      }
+
+      .btn-red:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 24px rgba(226, 28, 42, 0.28);
+        filter: brightness(1.03);
+      }
+
+      .btn-red:hover::after {
+        transform: translateX(120%);
+      }
+    }
+
+    .btn-red:focus-visible {
+      outline: 3px solid rgba(251, 193, 12, 0.9);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 1200px) {
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ---------- About ---------- */
+    .about {
+      background: #fbbb03;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      min-height: 520px;
+    }
+
+    .about .wrap {
+      max-width: var(--max);
+      padding: 0 70px;
+      width: 100%;
+    }
+
+    .about .grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 0;
+      align-items: stretch;
+      padding: 0;
+      width: 100%;
+    }
+
+    .about .left {
+      display: grid;
+      place-items: stretch;
+      gap: 0;
+      align-self: stretch;
+      min-height: 520px;
+      padding: 0;
+    }
+
+    .about .media {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+      display: grid;
+      place-items: stretch;
+    }
+
+    .about .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .about .copy {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+      height: 100%;
+      padding: 34px 0 34px 36px;
+    }
+
+    .about .copy h2 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 52px;
+      letter-spacing: -0.06em;
+      line-height: 0.95;
+    }
+
+    .about h2 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: 52px;
+      letter-spacing: -0.06em;
+    }
+
+    .about .copy p {
+      margin: 0 0 12px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .about .copy p.kicker {
+      font-size: 48px;
+      line-height: 1;
+      margin: 6px 0 14px;
+      text-transform: uppercase;
+    }
+
+    .about .kicker.shimmer {
+      background: linear-gradient(90deg, #000 0%, #000 35%, rgba(255, 255, 255, 0.95) 50%, #000 65%, #000 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 2.6s linear infinite;
+      text-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 220% 50%;
+      }
+    }
+
+    .about .learn {
+      display: inline-block;
+      text-decoration: underline;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .about {
+        min-height: auto;
+      }
+
+      .about .grid {
+        grid-template-columns: 1fr;
+        padding: 28px 0;
+        align-items: start;
+      }
+
+      .about h2 {
+        text-align: center;
+      }
+
+      .about .copy h2 {
+        text-align: left;
+      }
+
+      .about .copy {
+        text-align: left;
+        padding: 22px 18px 0;
+      }
+
+      .about .left,
+      .about .media {
+        min-height: 0;
+      }
+    }
+
+    /* ---------- Wildest ---------- */
+    .wildest {
+      background: var(--bg-cream);
+      padding: 0;
+    }
+
+    .wildest .trail-zone {
+      position: relative;
+      height: auto;
+      padding: clamp(24px, 4vw, 44px) 0;
+      border-radius: 0;
+      overflow: hidden;
+      background: var(--bg-cream);
+      width: 100%;
+    }
+
+    .wildest .trail-zone::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 55%, rgba(251, 193, 12, 0.22) 0%, rgba(247, 240, 231, 0.0) 60%);
+      pointer-events: none;
+    }
+
+    .wildest .content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(280px, 480px) 1fr;
+      align-items: center;
+      gap: clamp(16px, 3vw, 44px);
+    }
+
+    .wildest .stack {
+      pointer-events: auto;
+    }
+
+    .wildest .stack-cards {
+      position: relative;
+      width: min(380px, 100%);
+      aspect-ratio: 3 / 4;
+      transform: translateZ(0);
+      filter: none;
+      touch-action: pan-y;
+    }
+
+    .wildest .stack-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      background: transparent;
+      border: 0;
+      transform-origin: 50% 80%;
+      box-shadow: none;
+      will-change: transform, opacity;
+      transition:
+        transform 700ms cubic-bezier(0.2, 0.85, 0.2, 1),
+        opacity 700ms cubic-bezier(0.2, 0.85, 0.2, 1);
+      transform:
+        translate(calc(var(--i) * 10px), calc(var(--i) * 12px))
+        rotate(calc(var(--i) * 2.2deg))
+        scale(calc(1 - (var(--i) * 0.04)));
+      opacity: calc(1 - (var(--i) * 0.08));
+    }
+
+    .wildest .stack-card.is-flying {
+      transition: none;
+      z-index: 99 !important;
+    }
+
+    .wildest .stack-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.0) 40%, rgba(0, 0, 0, 0.18) 100%);
+      pointer-events: none;
+    }
+
+    .wildest .stack-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 22%;
+      display: block;
+      transform: none;
+    }
+
+    .wildest .stack-cards.is-interactive {
+      cursor: grab;
+    }
+
+    .wildest .stack-cards.is-interactive:active {
+      cursor: grabbing;
+    }
+
+    .wildest .center {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 clamp(18px, 5vw, 70px);
+      pointer-events: none;
+    }
+
+    .wildest .center img {
+      width: auto;
+      height: auto;
+      max-width: min(520px, 52vw);
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.18));
+    }
+
+
+    @media (max-width: 980px) {
+      .wildest .trail-zone {
+        padding: clamp(18px, 4vw, 32px) 0;
+        border-radius: 0;
+      }
+
+      .wildest .content {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .wildest .stack {
+        width: 100%;
+        display: grid;
+        justify-items: start;
+      }
+
+      .wildest .stack-cards {
+        width: min(320px, 100%);
+        max-width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .wildest .center {
+        width: 100%;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .wildest .center img {
+        max-width: min(480px, 84vw);
+        max-height: none;
+      }
+    }
+
+    /* ---------- Our food ---------- */
+    .our-food {
+      background: var(--bg-yellow);
+      padding: 0 0 52px;
+    }
+
+    .our-food .big {
+      margin: 0;
+      font-size: 116px;
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.07em;
+      text-align: left;
+    }
+
+    .our-food .big-bite {
+      width: 100%;
+      max-width: 100%;
+      font-size: clamp(84px, 13.2vw, 230px);
+      line-height: 0.94;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+      margin: 0;
+      padding-bottom: 14px;
+      color: #000;
+      white-space: nowrap;
+      text-align: left;
+    }
+
+    @supports (-webkit-background-clip: text) or (background-clip: text) {
+      .our-food .big-bite {
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-image:
+          url("https://static.tossdown.com/images/f177ccc3-5600-4fe2-b0d5-9e727367854b.webp"),
+          url("https://static.tossdown.com/images/6f45a484-aa9a-4f92-aeff-be420d5070b7.webp"),
+          url("https://static.tossdown.com/images/26fd47b7-430d-41ff-9dd3-0b4f8ec8e450.webp"),
+          linear-gradient(180deg, #111 0%, #000 55%, #111 100%);
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+        background-size: 280px auto, 280px auto, 280px auto, 100% 100%;
+        background-position: 120% 50%, 170% 50%, 220% 50%, 0 0;
+        animation: biteEnergyRTL 14s linear infinite;
+      }
+    }
+
+    @keyframes biteEnergyRTL {
+      0% {
+        background-position: 120% 50%, 170% 50%, 220% 50%, 0 0;
+      }
+
+      100% {
+        background-position: -120% 50%, -70% 50%, -20% 50%, 0 0;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .our-food .big {
+        font-size: 72px;
+        text-align: center;
+      }
+
+      .our-food .big-bite {
+        text-align: left;
+        letter-spacing: -0.06em;
+        line-height: 1;
+        padding-bottom: 14px;
+        white-space: normal;
+      }
+
+      @supports (-webkit-background-clip: text) or (background-clip: text) {
+        .our-food .big-bite {
+          background-size: 200px auto, 200px auto, 200px auto, 100% 100%;
+        }
+      }
+    }
+
+    .our-food .toprow {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .our-food .intro {
+      font-size: 16px;
+      line-height: 1.35;
+      max-width: 320px;
+    }
+
+    .tabs {
+      margin-top: 0;
+      display: flex;
+      gap: 14px;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 0;
+    }
+
+    .tabs::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .tabs::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 999px;
+    }
+
+    .tab {
+      height: 46px;
+      padding: 0 18px;
+      border-radius: 12px;
+      border: 0;
+      background: rgba(247, 240, 231, 0.95);
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    }
+
+    .tab[aria-selected="true"] {
+      background: #000;
+      color: var(--bg-yellow);
+    }
+
+    @media (max-width: 980px) {
+      .our-food .toprow {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .our-food .intro {
+        max-width: 520px;
+      }
+
+      .tab {
+        height: 42px;
+        font-size: 16px;
+        padding: 0 14px;
+      }
+    }
+
+    .food-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .food-card {
+      background: transparent;
+    }
+
+    .food-card .img {
+      height: 320px;
+      border-radius: 0;
+      border: 2px solid rgba(0, 0, 0, 0.18);
+      background: rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      display: block;
+    }
+
+    .food-card .img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .food-card .meta {
+      background: var(--bg-yellow);
+      border: 2px solid rgba(0, 0, 0, 0.18);
+      border-top: 0;
+      padding: 14px 14px 12px;
+      text-align: center;
+    }
+
+    .food-card h4 {
+      margin: 0;
+      font-size: 24px;
+      text-transform: uppercase;
+    }
+
+    .food-card .desc {
+      margin: 6px 0 0;
+      font-size: 12px;
+      opacity: 0.92;
+    }
+
+    .food-card .price {
+      margin: 8px 0 0;
+      font-size: 22px;
+    }
+
+    .food-card .order {
+      margin: 8px 0 0;
+      display: inline-block;
+      font-size: 18px;
+      text-transform: uppercase;
+      text-decoration: underline;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1200px) {
+      .food-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .food-card .img {
+        height: 280px;
+      }
+    }
+
+    /* ---------- Split promos ---------- */
+    .promos {
+      background: var(--bg-cream);
+      padding: 26px 0 34px;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .promo {
+      height: auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .promo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    @media (max-width: 980px) {
+      .promo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Vib Club CTA ---------- */
+    .vib {
+      background: var(--bg-red);
+      color: #fff;
+      padding: 18px 0;
+    }
+
+    .vib .row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .vib .txt {
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .vib .txt.shimmer {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.75) 0%, #fff 20%, rgba(255, 255, 255, 0.75) 40%, #fff 60%, rgba(255, 255, 255, 0.75) 100%);
+      background-size: 220% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: vibShimmer 2.4s linear infinite;
+      text-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+    }
+
+    @keyframes vibShimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      100% {
+        background-position: 220% 50%;
+      }
+    }
+
+    .vib .brand {
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      background: var(--bg-yellow);
+      display: grid;
+      place-items: center;
+      color: #000;
+      font-weight: 900;
+      overflow: hidden;
+    }
+
+    .vib .brand img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .stores {
+      justify-self: end;
+      display: flex;
+      gap: 10px;
+    }
+
+    .store {
+      width: 230px;
+      height: 70px;
+      border-radius: 14px;
+      border: 0;
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 8px 12px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    .store img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    @media (max-width: 980px) {
+      .vib .row {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .vib .txt {
+        font-size: 28px;
+        text-align: left;
+      }
+
+      .stores {
+        justify-self: center;
+      }
+
+      .store {
+        width: 220px;
+        height: 66px;
+      }
+    }
+
+    /* ---------- Pre-footer image ---------- */
+    .prefooter {
+      position: relative;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .prefooter .bg {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: top center;
+    }
+
+    .prefooter .cta {
+      position: absolute;
+      left: 50%;
+      bottom: 34px;
+      transform: translateX(-50%);
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 10px;
+      border: 0;
+      background: var(--bg-yellow);
+      color: #000;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
+      z-index: 2;
+    }
+
+    @media (max-width: 720px) {
+      .prefooter .bg {
+        height: auto;
+      }
+
+      .prefooter .cta {
+        bottom: 22px;
+      }
+    }
+
+    /* ---------- Find my Howdy ---------- */
+    .find-howdy {
+      background:
+        radial-gradient(circle at top left, rgba(251, 193, 12, 0.18), transparent 28%),
+        linear-gradient(180deg, #f8f3ea 0%, #f5efe3 100%);
+      padding: 56px 0 60px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .find-howdy .top {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 22px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .find-howdy .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 900;
+      opacity: 0.72;
+    }
+
+    .find-howdy h2 {
+      margin: 0;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 0.96;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+
+    .find-howdy .sub {
+      max-width: 760px;
+      font-size: 14px;
+      line-height: 1.55;
+      opacity: 0.82;
+      margin: 0;
+    }
+
+    .find-howdy .location-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .find-howdy .location-tab {
+      height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.68);
+      color: #111;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        color 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .find-howdy .location-tab[aria-selected="true"] {
+      background: #111;
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+    }
+
+    .find-howdy .location-tab:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .find-howdy .location-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .find-howdy .location-card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .find-howdy .location-media {
+      aspect-ratio: 1 / 1;
+      background: #000;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .find-howdy .location-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 55%, rgba(0, 0, 0, 0.18), transparent 38%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.08));
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+
+    .find-howdy .location-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      position: relative;
+      z-index: 1;
+      transform: scale(1);
+      transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+      filter: none;
+    }
+
+    .find-howdy .location-body {
+      display: grid;
+      gap: 10px;
+      padding: 16px 16px 18px;
+    }
+
+    .find-howdy .location-city {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    .find-howdy .location-name {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .find-howdy .location-link {
+      color: inherit;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .find-howdy .location-number {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .find-howdy .location-address {
+      font-size: 13px;
+      line-height: 1.5;
+      opacity: 0.82;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    .find-howdy .location-cta {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #f02332 0%, #d91522 100%);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 18px rgba(226, 28, 42, 0.18);
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .find-howdy .location-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 44px rgba(0, 0, 0, 0.12);
+      }
+
+      .find-howdy .location-card:hover .location-media img {
+        transform: scale(1.12);
+      }
+
+      .find-howdy .location-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 24px rgba(226, 28, 42, 0.28);
+        filter: brightness(1.03);
+      }
+    }
+
+    .find-howdy .location-link:focus-visible,
+    .find-howdy .location-tab:focus-visible,
+    .find-howdy .location-cta:focus-visible {
+      outline: 3px solid rgba(251, 193, 12, 0.95);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .find-howdy {
+        padding: 46px 0 52px;
+      }
+
+      .find-howdy .location-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .find-howdy .location-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .find-howdy .location-tab {
+        flex: 1 1 calc(50% - 10px);
+      }
+    }
+
+    /* ---------- Footer ---------- */
+    .footer {
+      background: #000;
+      padding: 54px 0 26px;
+      color: #fff;
+    }
+
+    .footer .cols {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    .footer h5 {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      color: var(--bg-yellow);
+    }
+
+    .footer a {
+      display: block;
+      text-decoration: none;
+      padding: 5px 0;
+      font-size: 12px;
+      opacity: 0.9;
+      color: #fff;
+    }
+
+    .footer a:hover {
+      opacity: 1;
+    }
+
+    .footer .mini {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.5;
+      color: #fff;
+    }
+
+    .footer .brand {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .footer .brand,
+    .footer .brand * {
+      text-align: center;
+    }
+
+    .footer .brand .mark {
+      width: 170px;
+      height: 170px;
+      border-radius: 999px;
+      background: var(--bg-yellow);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+      overflow: hidden;
+    }
+
+    .footer .brand .mark img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .footer .social {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(0, 0, 0, 0.92);
+      color: #fff;
+      position: relative;
+      display: inline-block;
+      padding: 0;
+      line-height: 0;
+      font-weight: 400;
+    }
+
+    .ico svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin: 0;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .ico svg * {
+      vector-effect: non-scaling-stroke;
+    }
+
+    .footer .badges {
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .footer .badge-btn {
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 10px;
+      text-decoration: none;
+    }
+
+    .legal {
+      background: #000;
+      padding: 10px 0 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .legal .row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      font-size: 12px;
+      opacity: 0.75;
+    }
+
+    .legal .center {
+      justify-self: center;
+    }
+
+    .legal .right {
+      justify-self: end;
+    }
+
+    @media (max-width: 980px) {
+      .footer .cols {
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .footer .brand {
+        grid-column: 1 / -1;
+      }
+
+      .legal .row {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .legal .right,
+      .legal .center {
+        justify-self: center;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="bar">
+        <div class="inner">
+          <nav class="nav" aria-label="Primary">
+            <a href="#menu">Menu</a>
+            <a href="#find">Find My Howdy’s</a>
+          </nav>
+          <a class="logo" href="#top" aria-label="Howdy">
+            <img src="assets/logo.png" alt="Howdy" />
+          </a>
+          <nav class="nav" aria-label="Secondary" style="justify-content: flex-end">
+            <a href="#about">About Us</a>
+            <a href="#vib">Loyalty</a>
+            <a class="pill" href="#order">Order Now</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <video class="bg" src="https://static.tossdown.com/videos/db5aee61-fa10-4e6b-8d03-ab7fb173f233.mp4" autoplay muted
+        loop playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="content">
+        <div class="wrap">
+          <div class="stack">
+            <h1 class="font-mind">
+              <span>New Menu</span>
+              <span>Same Good Vibes!</span>
+            </h1>
+            <a class="cta" href="#menu">View Menu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+      </div>
+    </div>
+
+    <section class="menu-strip" id="menu" data-reveal>
+      <div class="wrap">
+        <div class="cards">
+          <article class="card">
+            <div class="thumb" aria-label="Yay Cheese image">
+              <img src="assets/Yay-Cheese.png" alt="Yay Cheese" />
+            </div>
+            <div class="head">
+              <h3 class="font-mind">Yay Cheese</h3>
+              <p>Signature cheesy burger with a saucy kick.</p>
+              <button class="btn-red" type="button">Order Now</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb" aria-label="Stinger image">
+              <img src="assets/Stinger.png" alt="Stinger" />
+            </div>
+            <div class="head">
+              <h3 class="font-mind">Stinger</h3>
+              <p>A classic with bite — spicy, crunchy, bold.</p>
+              <button class="btn-red" type="button">Order Now</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb" aria-label="Crispy Bae image">
+              <img src="assets/Crispy%20Bae.png" alt="Crispy Bae" />
+            </div>
+            <div class="head">
+              <h3 class="font-mind">Crispy Bae</h3>
+              <p>Crispy chicken, melty cheese, house sauce.</p>
+              <button class="btn-red" type="button">Order Now</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb" aria-label="Value Burger image">
+              <img src="assets/Value-meal.png" alt="Value Burger" />
+            </div>
+            <div class="head">
+              <h3 class="font-mind">Value Burger</h3>
+              <p>Big flavor. Friendly price. Everyday go-to.</p>
+              <button class="btn-red" type="button">Order Now</button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb" aria-label="Kids Menu image">
+              <img src="assets/Kids%20Menu.png" alt="Kids Menu" />
+            </div>
+            <div class="head">
+              <h3 class="font-mind">Kids Menu</h3>
+              <p>Little bites, big smiles — made for kids.</p>
+              <button class="btn-red" type="button">Order Now</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about" data-reveal>
+      <div class="wrap">
+        <div class="grid">
+          <div class="left">
+            <div class="media" aria-label="About us image">
+              <img src="assets/howdypakistan_1777581267_3886954654450063637_3268465158-2.png" alt="Howdy" />
+            </div>
+          </div>
+          <div class="copy">
+            <h2 class="font-mind">About Us</h2>
+            <p>
+              There are some bites you never forget. Your first road trip meal. Late-night cravings with friends. And
+              that one burger that ruined all others
+              for you.
+            </p>
+            <p class="kicker shimmer font-mind">That’s the feeling Howdy was built on.</p>
+            <p>
+              Not just a burger place — but a flavor people come back for. Years of experimenting, grilling over real
+              charcoal, and chasing the perfect bite
+              led to something simple: burgers that feel unforgettable from the very first bite.
+            </p>
+            <a class="learn font-mind" href="#vib">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wildest" aria-label="Wildest section" data-reveal>
+      <div class="wrap">
+        <div class="trail-zone" aria-label="Wildest image">
+          <div class="content">
+            <div class="stack" aria-label="Image stack">
+              <div class="stack-cards" aria-label="Swipeable cards">
+                <div class="stack-card" style="--i:0">
+                  <img src="https://static.tossdown.com/images/819bd950-fce0-4cb1-af0a-202ed322ca12.webp" alt="" />
+                </div>
+                <div class="stack-card" style="--i:1">
+                  <img src="https://static.tossdown.com/images/a999ca14-3605-45c9-b227-93dfefea82da.webp" alt="" />
+                </div>
+                <div class="stack-card" style="--i:2">
+                  <img src="https://static.tossdown.com/images/682afa44-d037-47db-9482-132fc40da7a7.webp" alt="" />
+                </div>
+                <div class="stack-card" style="--i:3">
+                  <img src="https://static.tossdown.com/images/93467c35-75da-4939-8c08-03cb8a0c9f1b.webp" alt="" />
+                </div>
+                <div class="stack-card" style="--i:4">
+                  <img src="https://static.tossdown.com/images/819bd950-fce0-4cb1-af0a-202ed322ca12.webp" alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="center" aria-hidden="true">
+              <img src="https://static.tossdown.com/images/7677a0e0-a762-4088-9ded-5aa5246dddda.webp" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="our-food" id="order" data-reveal>
+      <div class="wrap">
+        <h2 class="big-bite font-mind">Let’s Howdy!</h2>
+        <div class="toprow" aria-label="Menu header row">
+          <div class="intro">
+            Discover our favorites. Order directly<br />
+            from us — or simply drop by.
+          </div>
+          <div class="tabs" role="tablist" aria-label="Menu categories">
+            <button class="tab" type="button" role="tab" aria-selected="true" data-tab="appetizers">Appetizers</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="charcoal">Charcoal Grilled
+              Burgers</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="beef">Beef Burgers</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="fried">Fried Burgers</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="smash">Smash Burgers</button>
+          </div>
+        </div>
+
+        <div class="food-grid" id="foodGrid">
+          <article class="food-card" data-cat="charcoal">
+            <div class="img" aria-label="Rango Tango image">
+              <img src="https://static.tossdown.com/images/ad73c768-6a0a-4202-8782-57a52673984a.webp"
+                alt="Rango Tango" />
+            </div>
+            <div class="meta">
+              <h4 class="font-mind">Rango Tango</h4>
+              <p class="desc">Juicy chicken burger with a mango twist.</p>
+              <p class="price font-rustler">Rs. 895</p>
+              <span class="order font-mind">Order Now</span>
+            </div>
+          </article>
+          <article class="food-card" data-cat="charcoal">
+            <div class="img" aria-label="Wrangler image">
+              <img src="https://static.tossdown.com/images/55c3bb7b-2134-4526-85c6-6cb867251158.webp" alt="Wrangler" />
+            </div>
+            <div class="meta">
+              <h4 class="font-mind">Wrangler</h4>
+              <p class="desc">Grilled breast of a chicken burger.</p>
+              <p class="price font-rustler">Rs. 895</p>
+              <span class="order font-mind">Order Now</span>
+            </div>
+          </article>
+          <article class="food-card" data-cat="charcoal">
+            <div class="img" aria-label="Rango Tango image">
+              <img src="https://static.tossdown.com/images/ad73c768-6a0a-4202-8782-57a52673984a.webp"
+                alt="Rango Tango" />
+            </div>
+            <div class="meta">
+              <h4 class="font-mind">Rango Tango</h4>
+              <p class="desc">Juicy chicken burger with a mango twist.</p>
+              <p class="price font-rustler">Rs. 895</p>
+              <span class="order font-mind">Order Now</span>
+            </div>
+          </article>
+          <article class="food-card" data-cat="charcoal">
+            <div class="img" aria-label="Wrangler image">
+              <img src="https://static.tossdown.com/images/55c3bb7b-2134-4526-85c6-6cb867251158.webp" alt="Wrangler" />
+            </div>
+            <div class="meta">
+              <h4 class="font-mind">Wrangler</h4>
+              <p class="desc">Grilled breast of a chicken burger.</p>
+              <p class="price font-rustler">Rs. 895</p>
+              <span class="order font-mind">Order Now</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="promos" id="promos" data-reveal>
+      <div class="wrap">
+        <div class="promo-grid">
+          <div class="promo" aria-label="Promo image 1">
+            <img src="https://static.tossdown.com/images/e234d23f-e19f-4e5a-b824-383ead0f1374.webp" alt="" />
+          </div>
+          <div class="promo" aria-label="Promo image 2">
+            <img src="https://static.tossdown.com/images/2b91e07e-d103-4c66-b1e7-3687aa1c99c7.webp" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vib" id="vib" data-reveal>
+      <div class="wrap">
+        <div class="row">
+          <div class="txt shimmer">Get exclusive deals on the Howdy App</div>
+          <div class="brand" aria-label="Howdy logo">
+            <img src="assets/logo.png" alt="Howdy" />
+          </div>
+          <div class="stores" aria-label="Store badges">
+            <a class="store" href="#" aria-label="Download on the App Store">
+              <img src="assets/App-store.png" alt="Download on the App Store" />
+            </a>
+            <a class="store" href="#" aria-label="Get it on Google Play">
+              <img src="assets/Play-store.png" alt="Get it on Google Play" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="prefooter" aria-label="Order Now" data-reveal>
+      <img class="bg" src="https://static.tossdown.com/images/21b77415-1d3f-48ab-a9c1-19b610196aa0.webp" alt="" />
+      <button class="cta" type="button">Order Now</button>
+    </section>
+
+    <section class="find-howdy" id="find" data-reveal>
+      <div class="wrap">
+        <div class="top">
+          <div class="eyebrow font-mind">Find my Howdy</div>
+          <h2 class="font-mind">Find my Howdy</h2>
+          <p class="sub">
+            Freshly grilled, loaded with flavor, and ready to satisfy every craving
+          </p>
+        </div>
+
+        <div class="location-tabs" role="tablist" aria-label="Howdy locations by city">
+          <button class="location-tab" type="button" role="tab" aria-selected="true" data-city-tab="lahore">Lahore</button>
+          <button class="location-tab" type="button" role="tab" aria-selected="false" data-city-tab="islamabad">Islamabad</button>
+          <button class="location-tab" type="button" role="tab" aria-selected="false" data-city-tab="peshawar">Peshawar</button>
+        </div>
+
+        <div class="location-grid" aria-label="Howdy branch locations">
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Packages Mall branch image">
+              <img src="assets/Packages.png" alt="Packages Mall" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">Packages Mall</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Packages+Mall+Lahore"
+                target="_blank" rel="noopener noreferrer">Packages Mall, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="9C Gulberg branch image">
+              <img src="assets/Gulberg.png" alt="9C Gulberg" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">9C Gulberg</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=9C+Gulberg+Lahore"
+                target="_blank" rel="noopener noreferrer">9C Gulberg, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Model Town branch image">
+              <img src="assets/Model-Town.png" alt="Model Town" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">Model Town</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Model+Town+Lahore"
+                target="_blank" rel="noopener noreferrer">Model Town, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Emporium Mall branch image">
+              <img src="assets/Emporium-Mall.png" alt="Emporium Mall" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">Emporium Mall</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Emporium+Mall+Lahore"
+                target="_blank" rel="noopener noreferrer">Emporium Mall, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Johar Town branch image">
+              <img src="assets/Johar-Town.png" alt="Johar Town" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">Johar Town</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Johar+Town+Lahore"
+                target="_blank" rel="noopener noreferrer">Johar Town, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Pine Avenue branch image">
+              <img src="assets/Pine-Avenue.png" alt="Pine Avenue" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Lahore</div>
+              <h3 class="location-name font-mind">Pine Avenue</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Pine+Avenue+Lahore"
+                target="_blank" rel="noopener noreferrer">Pine Avenue, Lahore</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="islamabad">
+            <div class="location-media" aria-label="Centaurus Mall branch image">
+              <img src="assets/Centauras.png" alt="Centaurus Mall" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Islamabad</div>
+              <h3 class="location-name font-mind">Centaurus Mall</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Centaurus+Mall+Islamabad"
+                target="_blank" rel="noopener noreferrer">Centaurus Mall, Islamabad</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="islamabad">
+            <div class="location-media" aria-label="F-7 branch image">
+              <img src="assets/F7.png" alt="F-7" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Islamabad</div>
+              <h3 class="location-name font-mind">F-7</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=F-7+Islamabad"
+                target="_blank" rel="noopener noreferrer">F-7, Islamabad</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="islamabad">
+            <div class="location-media" aria-label="Giga Mall branch image">
+              <img src="assets/Giga-Mall.png" alt="Giga Mall" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Islamabad</div>
+              <h3 class="location-name font-mind">Giga Mall</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Giga+Mall+Islamabad"
+                target="_blank" rel="noopener noreferrer">Giga Mall, Islamabad</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="peshawar">
+            <div class="location-media" aria-label="Saddar Peshawar branch image">
+              <img src="assets/Peshawar.png" alt="Peshawar" />
+            </div>
+            <div class="location-body">
+              <div class="location-city">Peshawar</div>
+              <h3 class="location-name font-mind">Saddar</h3>
+              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
+              <a class="location-link location-address"
+                href="https://www.google.com/maps/search/?api=1&query=Saddar+Peshawar"
+                target="_blank" rel="noopener noreferrer">Saddar, Peshawar</a>
+              <a class="location-cta" href="#order">Order Now</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" data-reveal>
+      <div class="wrap">
+        <div class="cols">
+          <div class="brand" aria-label="Footer brand">
+            <div class="mark" aria-label="Howdy logo">
+              <img src="assets/logo.png" alt="Howdy" />
+            </div>
+            <div class="social" aria-label="Social links">
+              <a class="ico" href="#" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                </svg>
+              </a>
+              <a class="ico" href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                  <path d="M16 11.37a4 4 0 1 1-7.89 1.17A4 4 0 0 1 16 11.37z" />
+                  <path d="M17.5 6.5h.01" />
+                </svg>
+              </a>
+              <a class="ico" href="#" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                  <path d="M9.75 15.02V8.98L15.5 12l-5.75 3.02z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h5>Useful Links</h5>
+            <a href="#find">Find my Howdy</a>
+            <a href="#about">About Us</a>
+            <a href="#top">Contact Us</a>
+            <a href="#order">Download Full Menu</a>
+          </div>
+          <div>
+            <h5>Categories</h5>
+            <a href="#order">Charcoaled Grilled Burgers</a>
+            <a href="#order">Beef Burgers</a>
+            <a href="#order">Fried Burgers</a>
+            <a href="#order">Smash Burgers</a>
+            <a href="#vib">Mince Madness</a>
+          </div>
+          <div>
+            <h5>Locations</h5>
+            <a href="#" aria-label="Packages Mall location">Packages Mall</a>
+            <a href="#" aria-label="9C Gulberg location">9C Gulberg</a>
+            <a href="#" aria-label="Model Town location">Model Town</a>
+            <a href="#" aria-label="Emporium Mall location">Emporium Mall</a>
+            <a href="#" aria-label="Johar Town location">Johar Town</a>
+            <a href="#" aria-label="Pine Avenue location">Pine Avenue</a>
+            <a href="#" aria-label="Centaurus Mall location">Centaurus Mall</a>
+            <a href="#" aria-label="F-7 location">F-7</a>
+            <a href="#" aria-label="Giga Mall location">Giga Mall</a>
+          </div>
+          <div>
+            <h5>Business Hours</h5>
+            <div class="mini"><strong>Mon–Thurs</strong><br />12:00 pm–10:00pm</div>
+            <div class="mini" style="margin-top: 10px"><strong>Fri–Sun</strong><br />12:00 pm–10:00pm</div>
+            <div class="mini" style="margin-top: 10px"><strong>042-11-11-46939</strong></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="track">
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+      </div>
+    </div>
+
+    <section class="legal" aria-label="Legal footer" data-reveal>
+      <div class="wrap">
+        <div class="row">
+          <div>© Howdys 2026. All Rights Reserved</div>
+          <div class="center">Privacy Policy&nbsp;&nbsp;Terms &amp; Conditions</div>
+          <div class="right">Powered by tossdown</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // Scroll reveal (premium section entrances)
+      const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
+      const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion && revealEls.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add("in-view");
+              io.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.06, rootMargin: "0px 0px -5% 0px" }
+        );
+
+        for (let i = 0; i < revealEls.length; i++) {
+          revealEls[i].style.setProperty("--d", `${Math.min(i * 70, 420)}ms`);
+          io.observe(revealEls[i]);
+        }
+
+        // Safety: if user reaches bottom, reveal anything still hidden.
+        function revealRemainingIfAtBottom() {
+          const doc = document.documentElement;
+          if (window.scrollY + window.innerHeight >= doc.scrollHeight - 60) {
+            for (const el of revealEls) el.classList.add("in-view");
+            window.removeEventListener("scroll", revealRemainingIfAtBottom, { passive: true });
+          }
+        }
+        window.addEventListener("scroll", revealRemainingIfAtBottom, { passive: true });
+        setTimeout(() => {
+          for (const el of revealEls) {
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight * 1.15) el.classList.add("in-view");
+          }
+        }, 350);
+      } else {
+        for (const el of revealEls) el.classList.add("in-view");
+      }
+
+      const tabs = Array.from(document.querySelectorAll(".tab"));
+      const cards = Array.from(document.querySelectorAll(".food-card"));
+      const defaultCat = "charcoal";
+
+      function setTab(cat) {
+        for (const t of tabs) t.setAttribute("aria-selected", String(t.dataset.tab === cat));
+        for (const c of cards) c.style.display = c.dataset.cat === cat ? "" : "none";
+      }
+
+      for (const tab of tabs) {
+        tab.addEventListener("click", () => setTab(tab.dataset.tab));
+      }
+
+      setTab(defaultCat);
+
+      const locationTabs = Array.from(document.querySelectorAll(".location-tab"));
+      const locationCards = Array.from(document.querySelectorAll(".location-card"));
+      const defaultCity = "lahore";
+
+      function setCity(city) {
+        for (const t of locationTabs) {
+          t.setAttribute("aria-selected", String(t.dataset.cityTab === city));
+        }
+        for (const card of locationCards) {
+          card.style.display = card.dataset.city === city ? "" : "none";
+        }
+      }
+
+      for (const tab of locationTabs) {
+        tab.addEventListener("click", () => setCity(tab.dataset.cityTab));
+      }
+
+      setCity(defaultCity);
+
+      // Duplicate marquee items so animation loops cleanly.
+      for (const track of document.querySelectorAll(".marquee .track")) {
+        const items = Array.from(track.children);
+        for (const node of items) track.appendChild(node.cloneNode(true));
+      }
+
+      // Wildest: stacked cards (touch/click to cycle)
+      const stack = document.querySelector(".wildest .stack-cards");
+      if (stack) {
+        stack.classList.add("is-interactive");
+        let startX = 0;
+        let startY = 0;
+        let activePointer = null;
+        const reduce =
+          window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let autoTimer = null;
+        let isPaused = false;
+        let isCycling = false;
+
+        function applyIndices() {
+          const cards = Array.from(stack.querySelectorAll(".stack-card"));
+          for (let i = 0; i < cards.length; i++) {
+            cards[i].style.setProperty("--i", String(i));
+            cards[i].style.zIndex = String(cards.length - i);
+          }
+        }
+
+        function cycleForward() {
+          if (isPaused) return;
+          if (isCycling) return;
+          const cards = Array.from(stack.querySelectorAll(".stack-card"));
+          const first = cards[0];
+          if (!first || cards.length < 2) return;
+          isCycling = true;
+
+          // 1) Promote remaining cards forward (smooth via CSS transition)
+          for (let i = 1; i < cards.length; i++) {
+            cards[i].style.setProperty("--i", String(i - 1));
+            cards[i].style.zIndex = String(cards.length - (i - 1));
+          }
+
+          // 2) Fly the top card out, then place it at the back
+          first.classList.add("is-flying");
+          const fly = reduce
+            ? null
+            : first.animate(
+              [
+                { transform: "translate(0px, 0px) rotate(0deg) scale(1)", opacity: 1 },
+                { transform: "translate(18px, -18px) rotate(-6deg) scale(1.02)", opacity: 1, offset: 0.35 },
+                { transform: "translate(46px, 34px) rotate(11deg) scale(0.92)", opacity: 0.88 }
+              ],
+              { duration: 780, easing: "cubic-bezier(0.2, 0.85, 0.2, 1)" }
+            );
+
+          const finish = () => {
+            // Move card to end and re-apply indices (avoid jump by momentarily disabling transitions)
+            stack.appendChild(first);
+            first.style.transition = "none";
+            first.style.setProperty("--i", String(cards.length - 1));
+            first.style.zIndex = "1";
+            // Force style flush, then restore
+            void first.offsetHeight;
+            first.style.transition = "";
+            first.classList.remove("is-flying");
+            applyIndices();
+            isCycling = false;
+          };
+
+          if (!fly) {
+            finish();
+            return;
+          }
+          fly.addEventListener("finish", finish, { once: true });
+        }
+
+        applyIndices();
+
+        function startAuto() {
+          if (reduce || autoTimer) return;
+          autoTimer = setInterval(cycleForward, 2200);
+        }
+
+        function stopAuto() {
+          if (!autoTimer) return;
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+
+        startAuto();
+
+        stack.addEventListener("mouseenter", () => {
+          isPaused = true;
+        });
+        stack.addEventListener("mouseleave", () => {
+          isPaused = false;
+        });
+        stack.addEventListener("focusin", () => {
+          isPaused = true;
+        });
+        stack.addEventListener("focusout", () => {
+          isPaused = false;
+        });
+
+        stack.addEventListener("pointerdown", (e) => {
+          activePointer = e.pointerId;
+          startX = e.clientX;
+          startY = e.clientY;
+          isPaused = true;
+          try {
+            stack.setPointerCapture(activePointer);
+          } catch { }
+        });
+
+        stack.addEventListener("pointerup", (e) => {
+          if (activePointer !== e.pointerId) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          activePointer = null;
+          isPaused = false;
+          // Treat as swipe or tap
+          if (Math.abs(dx) > 26 && Math.abs(dx) > Math.abs(dy)) cycleForward();
+          else if (Math.abs(dx) < 6 && Math.abs(dy) < 6) cycleForward();
+        });
+      }
+
+    })();
+  </script>
+</body>
+
+</html>

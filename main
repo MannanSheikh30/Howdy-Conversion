@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Howdy</title>
+    <meta http-equiv="refresh" content="0; url=index.html" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+      body {
+        display: grid;
+        place-items: center;
+      }
+      a {
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>Redirecting to <a href="index.html">index.html</a>…</p>
+    </div>
+  </body>
+</html>
