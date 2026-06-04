@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/sync-static.mjs",
     "dev": "next dev -p 3000",
+    "prebuild": "node scripts/sync-static.mjs",
     "build": "next build",
     "start": "next start -p 3000",
     "dev:static": "node static-server.js"
