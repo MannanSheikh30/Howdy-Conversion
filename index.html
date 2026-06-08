@@ -6,6 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Howdy</title>
   <style>
+    @font-face {
+      font-family: "Polysans";
+      src: url("assets/fonts/polysanstrial-neutral.otf") format("opentype");
+      font-style: normal;
+      font-weight: 400;
+    }
+
     :root {
       --bg-cream: #f7f0e7;
       --bg-yellow: #fbc10c;
@@ -26,9 +33,9 @@
     body {
       height: 100%;
       margin: 0;
-      background: #fff;
+      background: var(--bg-yellow);
       color: var(--text-black);
-      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: "Polysans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     a {
@@ -113,8 +120,8 @@
     /* ---------- Header ---------- */
     .topbar {
       background: transparent;
-      color: #fff;
-      position: absolute;
+      color: #111;
+      position: fixed;
       top: 20px;
       left: 0;
       right: 0;
@@ -122,12 +129,17 @@
       pointer-events: none;
     }
 
+    .topbar .wrap {
+      max-width: var(--max);
+      padding: 0 24px;
+    }
+
     .topbar .bar {
       height: 72px;
-      background: rgba(11, 11, 11, 0.92);
+      background: #FFF3CD;
       backdrop-filter: blur(6px);
       border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
       padding: 0 18px;
       overflow: visible;
       pointer-events: auto;
@@ -145,16 +157,18 @@
       display: flex;
       gap: 22px;
       align-items: center;
-      font-size: 12px;
-      letter-spacing: 0.12em;
+      font-size: 18px;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       font-weight: 700;
       white-space: nowrap;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
     }
 
     .nav a {
       text-decoration: none;
       opacity: 0.95;
+      color: #111;
     }
 
     .nav a:hover {
@@ -168,9 +182,9 @@
       height: 42px;
       padding: 0 18px;
       border-radius: 8px;
-      background: var(--bg-yellow);
-      color: #000;
-      font-size: 12px;
+      background: #000;
+      color: var(--bg-yellow);
+      font-size: 18px;
       letter-spacing: 0.12em;
       font-weight: 900;
       text-transform: uppercase;
@@ -213,109 +227,218 @@
     /* ---------- Hero ---------- */
     .hero {
       position: relative;
-      height: 590px;
-      background: #231a14;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(251, 193, 12, 0.14), transparent 38%),
+        #0b0b0b;
+      padding: 152px 0 0;
       overflow: hidden;
     }
 
-    .hero .bg {
-      position: absolute;
-      inset: -40px;
-      filter: blur(0px);
-      opacity: 0.95;
-      border-radius: 0;
+    .hero .shell {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
-    .hero video.bg {
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 1;
-      filter: none;
-    }
-
-    .hero .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.78) 100%);
-    }
-
-    .hero .content {
-      position: relative;
-      height: 100%;
+    .hero .intro {
       display: grid;
-      align-items: end;
-      justify-items: start;
-      text-align: left;
-    }
-
-    .hero .content>.wrap {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding-bottom: 50px;
-    }
-
-    .hero .stack {
-      max-width: 680px;
+      gap: 18px;
+      max-width: 1180px;
+      margin: 0 auto 18px;
+      text-align: center;
     }
 
     .hero h1 {
       margin: 0;
-      color: #fff;
       text-transform: uppercase;
-      line-height: 0.95;
-      font-size: 58px;
-      letter-spacing: -0.03em;
-      text-shadow: 0 10px 50px rgba(0, 0, 0, 0.55);
+      line-height: 0.9;
+      font-size: clamp(56px, 8.8vw, 128px);
+      letter-spacing: -0.07em;
     }
 
     .hero h1 span {
       display: block;
     }
 
-    .hero .cta {
-      margin-top: 16px;
+    .hero .hero-accent {
+      color: var(--bg-yellow);
+      text-shadow:
+        0 0 18px rgba(251, 193, 12, 0.14),
+        0 2px 0 rgba(0, 0, 0, 0.24);
+    }
+
+    .hero .hero-plain {
+      color: #fff;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .hero .hero-media {
+      position: relative;
+      width: var(--hero-media-width, 65vw);
+      max-width: calc(100vw - 48px);
+      margin: 0;
+      border-radius: 28px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9.1;
+      background: #111;
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.18);
+      transform-origin: center top;
+      opacity: var(--hero-media-opacity, 0.92);
+      transform: translateY(var(--hero-media-y, 12px)) scale(var(--hero-media-scale, 0.92));
+      transition:
+        width 120ms linear,
+        transform 120ms linear,
+        opacity 120ms linear,
+        border-radius 120ms linear,
+        box-shadow 120ms linear;
+    }
+
+    .hero .hero-media-stage {
+      position: sticky;
+      top: 132px;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      z-index: 2;
+    }
+
+    .hero .hero-media video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero .hero-media.in-view {
+      --hero-media-width: 100vw;
+      --hero-media-opacity: 1;
+      --hero-media-y: 0px;
+      --hero-media-scale: 1;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .hero .hero-copy {
+      text-align: center;
+      margin: 18px auto 0;
+      padding: 0 28px;
+      max-width: 1020px;
+      font-size: 16px;
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .hero .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 18px auto 0;
+      width: fit-content;
+    }
+
+    .hero .hero-cta-row .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       height: 42px;
       padding: 0 18px;
       border-radius: 8px;
-      background: #fff;
+      background: var(--bg-yellow);
       color: #000;
-      font-size: 12px;
+      font-size: 18px;
       letter-spacing: 0.12em;
       font-weight: 900;
       text-transform: uppercase;
       text-decoration: none;
       box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease,
+        color 180ms ease;
+    }
+
+    .hero .hero-cta-row .pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero .hero-cta-row .pill:active {
+      transform: translateY(0);
+    }
+
+    .hero .marquee {
+      width: 100vw;
+      margin: 30px calc(50% - 50vw) 0;
+      position: relative;
+      z-index: 1;
     }
 
     @media (max-width: 640px) {
       .hero {
-        height: 550px;
+        padding: 126px 0 0;
       }
 
       .hero h1 {
-        font-size: 44px;
+        font-size: clamp(42px, 13vw, 72px);
+      }
+
+      .hero .intro,
+      .hero .hero-copy {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .hero .hero-media {
+        border-radius: 22px;
+        aspect-ratio: 4 / 3.1;
+      }
+
+      .hero .hero-media.in-view {
+        border-radius: 0;
+      }
+
+      .hero .hero-media-stage {
+        top: 104px;
+      }
+
+      .hero .marquee {
+        margin-top: 30px;
+      }
+
+      .hero .hero-copy {
+        font-size: 16px;
+      }
+
+      .hero .hero-cta-row {
+        gap: 10px;
+      }
+
+      .hero .hero-cta-row .pill {
+        height: 40px;
+        font-size: 14px;
       }
     }
 
     /* ---------- Marquee ---------- */
     .marquee {
-      background: var(--bg-black);
-      color: #fff;
-      height: 44px;
+      background: var(--bg-yellow);
+      color: #111;
+      height: 64px;
       display: flex;
       align-items: center;
       overflow: hidden;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.14);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.14);
     }
 
     .marquee .track {
@@ -324,22 +447,24 @@
       align-items: center;
       white-space: nowrap;
       animation: scroll 18s linear infinite;
-      padding-left: 22px;
+      padding-left: 0;
     }
 
     .marquee .item {
       display: inline-flex;
       gap: 18px;
       align-items: center;
-      font-size: 12px;
-      letter-spacing: 0.18em;
+      font-size: 34px;
+      letter-spacing: -0.04em;
       text-transform: uppercase;
       font-weight: 900;
+      line-height: 1;
     }
 
     .marquee .arrow {
       opacity: 0.8;
       font-weight: 900;
+      font-size: 0.75em;
     }
 
     @keyframes scroll {
@@ -349,6 +474,241 @@
 
       to {
         transform: translateX(-50%);
+      }
+    }
+
+    /* ---------- Flavor Feature ---------- */
+    .flavor-poster {
+      background: var(--bg-cream);
+      padding: 34px 0 42px;
+    }
+
+    .flavor-poster .wrap {
+      max-width: 1300px;
+    }
+
+    .poster-card {
+      position: relative;
+      min-height: 660px;
+      background:
+        radial-gradient(circle at 76% 18%, rgba(251, 193, 12, 0.12), transparent 18%),
+        linear-gradient(135deg, #fbf4ea 0%, #f3eadc 100%);
+      border-radius: 28px;
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+    }
+
+    .poster-cap {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      width: clamp(88px, 9vw, 132px);
+      height: auto;
+      z-index: 6;
+      pointer-events: none;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
+    }
+
+    .poster-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(125deg, rgba(255, 255, 255, 0.22), transparent 28%, transparent 76%, rgba(0, 0, 0, 0.04));
+      pointer-events: none;
+    }
+
+    .poster-layout {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      min-height: 660px;
+    }
+
+    .poster-copy {
+      position: relative;
+      padding: 26px 0 26px 24px;
+      z-index: 5;
+      text-align: left;
+    }
+
+    .poster-copy h2 {
+      margin: 0;
+      font-size: clamp(84px, 9vw, 126px);
+      line-height: 0.82;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+      color: #111;
+      max-width: 0.9em;
+      position: relative;
+      left: -4px;
+    }
+
+    .poster-copy h2 span {
+      display: inline-block;
+      background: #fbc10c;
+      padding: 0.02em 0.12em 0.04em 0.06em;
+      border-radius: 12px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .poster-visual {
+      position: relative;
+      min-height: 660px;
+      overflow: hidden;
+      z-index: 4;
+      padding: 0;
+    }
+
+    .poster-panel {
+      position: relative;
+      width: 100%;
+      min-height: 100%;
+      height: 100%;
+      padding: 0;
+      z-index: 1;
+    }
+
+    .poster-slider {
+      position: relative;
+      min-height: 660px;
+      height: 100%;
+    }
+
+    .poster-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-end;
+      opacity: 0;
+      transform: translateX(18%) scale(0.985);
+      animation: posterSlider 20s infinite ease-in-out;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .poster-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: right top;
+      display: block;
+    }
+
+    .poster-slide:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .poster-slide:nth-child(2) {
+      animation-delay: 4s;
+    }
+
+    .poster-slide:nth-child(3) {
+      animation-delay: 8s;
+    }
+
+    .poster-slide:nth-child(4) {
+      animation-delay: 12s;
+    }
+
+    .poster-slide:nth-child(5) {
+      animation-delay: 16s;
+    }
+
+    @keyframes posterSlider {
+
+      0%,
+      16% {
+        opacity: 0;
+        transform: translateX(18%) scale(0.985);
+      }
+
+      20%,
+      80% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+
+      84%,
+      100% {
+        opacity: 0;
+        transform: translateX(-18%) scale(0.985);
+      }
+    }
+
+    .poster-copy small {
+      display: block;
+      margin-top: 24px;
+      font-size: 16px;
+      line-height: 1.25;
+      max-width: 320px;
+      color: rgba(17, 17, 17, 0.74);
+    }
+
+    .poster-copy small span {
+      display: block;
+    }
+
+    .poster-copy .poster-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 22px;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--bg-yellow);
+      color: #000;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+    }
+
+    @media (max-width: 980px) {
+      .poster-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .poster-card,
+      .poster-layout,
+      .poster-visual {
+        min-height: auto;
+      }
+
+      .poster-copy {
+        padding: 18px 18px 0;
+      }
+
+      .poster-cap {
+        top: 8px;
+        left: 8px;
+        width: clamp(72px, 15vw, 108px);
+      }
+
+      .poster-copy h2 {
+        max-width: none;
+        font-size: clamp(58px, 14vw, 90px);
+      }
+
+      .poster-visual {
+        min-height: 430px;
+        padding: 0;
+      }
+
+      .poster-panel {
+        padding: 0;
+      }
+
+      .poster-slider {
+        min-height: 430px;
       }
     }
 
@@ -391,7 +751,7 @@
       z-index: 0;
     }
 
-    .card > * {
+    .card>* {
       position: relative;
       z-index: 1;
     }
@@ -522,149 +882,201 @@
 
     /* ---------- About ---------- */
     .about {
-      background: #fbbb03;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      min-height: 520px;
-    }
-
-    .about .wrap {
-      max-width: var(--max);
-      padding: 0 70px;
-      width: 100%;
-    }
-
-    .about .grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 0;
-      align-items: stretch;
-      padding: 0;
-      width: 100%;
-    }
-
-    .about .left {
-      display: grid;
-      place-items: stretch;
-      gap: 0;
-      align-self: stretch;
-      min-height: 520px;
-      padding: 0;
-    }
-
-    .about .media {
-      width: 100%;
-      height: 100%;
-      min-height: 520px;
-      background: transparent;
-      border-radius: 0;
-      box-shadow: none;
+      position: relative;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      background: #a02712;
+      min-height: 1080px;
+      height: 1080px;
       overflow: hidden;
-      display: grid;
-      place-items: stretch;
+      isolation: isolate;
+      --about-house-y: 0px;
+      --about-rider-y: 0px;
+      --about-rider-x: 0px;
     }
 
-    .about .media img {
+    .about::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 204, 107, 0.14), transparent 32%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.18));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .about-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .about-house,
+    .about-rider {
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .about-house {
+      inset: 0;
+      transform: translate3d(0, var(--about-house-y), 0);
+    }
+
+    .about-house img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: left bottom;
       display: block;
     }
 
-    .about .copy {
-      display: grid;
-      gap: 12px;
-      align-content: center;
+    .about-rider {
+      top: 28px;
+      right: -2vw;
+      bottom: 0;
+      width: min(42vw, 720px);
+      max-width: 44%;
+      opacity: 0;
+      transform: translate3d(56px, 0, 0);
+      transition:
+        opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 820ms cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+    }
+
+    .about.in-view.about-rider-ready.about-rider-visible .about-rider {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .about-rider-inner {
+      width: 100%;
       height: 100%;
-      padding: 34px 0 34px 36px;
+      transform: translate3d(var(--about-rider-x), var(--about-rider-y), 0);
+      will-change: transform;
+      transition: transform 140ms linear;
     }
 
-    .about .copy h2 {
+    .about-rider img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: right bottom;
+      display: block;
+    }
+
+    .about-copy {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .about-copy-inner {
+      max-width: 620px;
+      color: #fff6eb;
+      text-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .about-copy h2 {
       margin: 0;
       text-transform: uppercase;
-      font-size: 52px;
-      letter-spacing: -0.06em;
-      line-height: 0.95;
+      line-height: 0.88;
+      letter-spacing: -0.07em;
     }
 
-    .about h2 {
-      margin: 0;
-      text-transform: uppercase;
-      font-size: 52px;
-      letter-spacing: -0.06em;
+    .about-copy h2 span {
+      display: block;
     }
 
-    .about .copy p {
-      margin: 0 0 12px;
-      font-size: 14px;
-      line-height: 1.45;
+    .about-copy h2 .about-kicker {
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 0.94;
+      white-space: nowrap;
+      font-weight: 700;
+      letter-spacing: -0.05em;
     }
 
-    .about .copy p.kicker {
-      font-size: 48px;
-      line-height: 1;
-      margin: 6px 0 14px;
-      text-transform: uppercase;
-    }
-
-    .about .kicker.shimmer {
-      background: linear-gradient(90deg, #000 0%, #000 35%, rgba(255, 255, 255, 0.95) 50%, #000 65%, #000 100%);
-      background-size: 220% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shimmer 2.6s linear infinite;
-      text-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      100% {
-        background-position: 220% 50%;
-      }
-    }
-
-    .about .learn {
-      display: inline-block;
-      text-decoration: underline;
+    .about-copy h2 .about-date {
+      margin-top: 8px;
+      font-size: clamp(76px, 9vw, 136px);
+      line-height: 0.82;
       font-weight: 900;
-      letter-spacing: 0.06em;
+      letter-spacing: -0.08em;
+    }
+
+    .about-copy p {
+      margin: 26px auto 0;
+      max-width: 480px;
+      font-size: 18px;
+      line-height: 1.5;
+      color: rgba(255, 246, 235, 0.92);
+    }
+
+    .about-copy .about-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 24px auto 0;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--bg-yellow);
+      color: #000;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
       text-transform: uppercase;
-      font-size: 12px;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
     }
 
     @media (max-width: 980px) {
       .about {
-        min-height: auto;
+        min-height: 740px;
+        height: 740px;
       }
 
-      .about .grid {
-        grid-template-columns: 1fr;
-        padding: 28px 0;
-        align-items: start;
+      .about-house img {
+        object-position: left bottom;
       }
 
-      .about h2 {
-        text-align: center;
+      .about-rider {
+        top: 24px;
+        right: -12vw;
+        bottom: 0;
+        width: min(74vw, 520px);
+        max-width: none;
       }
 
-      .about .copy h2 {
-        text-align: left;
+      .about-copy {
+        padding: 56px 20px;
       }
 
-      .about .copy {
-        text-align: left;
-        padding: 22px 18px 0;
+      .about-copy h2 {
+        line-height: 0.9;
       }
 
-      .about .left,
-      .about .media {
-        min-height: 0;
+      .about-copy h2 .about-kicker {
+        font-size: clamp(28px, 7vw, 40px);
+      }
+
+      .about-copy h2 .about-date {
+        margin-top: 6px;
+        font-size: clamp(56px, 14vw, 88px);
+      }
+
+      .about-copy p {
+        margin-top: 20px;
+        font-size: 16px;
+        max-width: 340px;
       }
     }
 
@@ -728,9 +1140,7 @@
         transform 700ms cubic-bezier(0.2, 0.85, 0.2, 1),
         opacity 700ms cubic-bezier(0.2, 0.85, 0.2, 1);
       transform:
-        translate(calc(var(--i) * 10px), calc(var(--i) * 12px))
-        rotate(calc(var(--i) * 2.2deg))
-        scale(calc(1 - (var(--i) * 0.04)));
+        translate(calc(var(--i) * 10px), calc(var(--i) * 12px)) rotate(calc(var(--i) * 2.2deg)) scale(calc(1 - (var(--i) * 0.04)));
       opacity: calc(1 - (var(--i) * 0.08));
     }
 
@@ -847,7 +1257,7 @@
       padding-bottom: 14px;
       color: #000;
       white-space: nowrap;
-      text-align: left;
+      text-align: center;
     }
 
     @supports (-webkit-background-clip: text) or (background-clip: text) {
@@ -902,61 +1312,107 @@
     .our-food .toprow {
       margin-top: 18px;
       display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 26px;
-      align-items: center;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
     }
 
     .our-food .intro {
+      margin: 0 auto;
       font-size: 16px;
       line-height: 1.35;
-      max-width: 320px;
+      max-width: 760px;
+      text-align: center;
+      white-space: nowrap;
     }
 
     .tabs {
       margin-top: 0;
       display: flex;
-      gap: 14px;
+      gap: 0;
       flex-wrap: nowrap;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      padding: 6px 0;
-    }
-
-    .tabs::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .tabs::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.18);
-      border-radius: 999px;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(133, 78, 35, 0.24), rgba(70, 35, 10, 0.16)),
+        linear-gradient(135deg, #7b471d 0%, #5b3313 40%, #3b220d 100%);
+      border: 3px solid rgba(42, 18, 4, 0.58);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 219, 162, 0.2),
+        inset 0 -3px 0 rgba(25, 10, 2, 0.32),
+        0 20px 36px rgba(67, 32, 10, 0.22);
     }
 
     .tab {
-      height: 46px;
+      position: relative;
+      height: 64px;
       padding: 0 18px;
-      border-radius: 12px;
+      border-radius: 0;
       border: 0;
-      background: rgba(247, 240, 231, 0.95);
+      background: transparent;
       cursor: pointer;
-      font-size: 18px;
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      font-size: 16px;
       font-weight: 900;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
       white-space: nowrap;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      color: #fff6e7;
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        color 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .tab::after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -1px;
+      width: 1px;
+      height: 34px;
+      background: rgba(255, 231, 193, 0.26);
+      box-shadow: 1px 0 0 rgba(36, 15, 3, 0.26);
+    }
+
+    .tab:last-child::after {
+      display: none;
+    }
+
+    .tab-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 46px;
+      padding: 0 8px;
+      border-radius: 0;
+      background: transparent;
+      line-height: 1.05;
+      text-align: center;
     }
 
     .tab[aria-selected="true"] {
-      background: #000;
-      color: var(--bg-yellow);
+      color: #ffd468;
+    }
+
+    .tab:hover {
+      transform: translateY(-1px);
+      color: #ffe4a8;
     }
 
     @media (max-width: 980px) {
       .our-food .toprow {
-        grid-template-columns: 1fr;
         gap: 12px;
       }
 
@@ -964,9 +1420,25 @@
         max-width: 520px;
       }
 
+      .tabs {
+        flex-direction: column;
+        gap: 4px;
+      }
+
       .tab {
-        height: 42px;
-        font-size: 16px;
+        height: 54px;
+        font-size: 15px;
+        width: 100%;
+        padding: 0 14px;
+      }
+
+      .tab::after {
+        display: none;
+      }
+
+      .tab-label {
+        width: 100%;
+        min-height: 42px;
         padding: 0 14px;
       }
     }
@@ -974,22 +1446,43 @@
     .food-grid {
       margin-top: 22px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
       align-items: start;
     }
 
     .food-card {
-      background: transparent;
+      position: relative;
+      background: #fff;
+      box-shadow: 12px 12px 0 #fbc10c;
+      overflow: hidden;
+      padding: 0;
+      border-radius: 28px;
+      border: 2px solid #111;
+      isolation: isolate;
+      transition:
+        transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .food-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: #fff;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .food-card .img {
-      height: 320px;
-      border-radius: 0;
-      border: 2px solid rgba(0, 0, 0, 0.18);
-      background: rgba(0, 0, 0, 0.08);
+      height: 250px;
+      border-radius: 22px;
+      border: 0;
+      background: #fff;
       overflow: hidden;
       display: block;
+      margin: 16px 16px 0;
     }
 
     .food-card .img img {
@@ -1001,83 +1494,198 @@
     }
 
     .food-card .meta {
-      background: var(--bg-yellow);
-      border: 2px solid rgba(0, 0, 0, 0.18);
-      border-top: 0;
-      padding: 14px 14px 12px;
-      text-align: center;
+      background: #fff;
+      padding: 16px 18px 18px;
+      text-align: left;
     }
 
     .food-card h4 {
       margin: 0;
-      font-size: 24px;
+      font-size: 26px;
       text-transform: uppercase;
     }
 
     .food-card .desc {
-      margin: 6px 0 0;
-      font-size: 12px;
+      margin: 10px 0 0;
+      font-size: 16px;
+      line-height: 1.35;
       opacity: 0.92;
+      min-height: 52px;
     }
 
     .food-card .price {
-      margin: 8px 0 0;
-      font-size: 22px;
+      margin: 14px 0 0;
+      font-size: 26px;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #b31919;
     }
 
     .food-card .order {
-      margin: 8px 0 0;
-      display: inline-block;
+      margin: 18px 0 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
       font-size: 18px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      text-decoration: underline;
+      text-decoration: none;
       font-weight: 900;
+      background: #000;
+      color: var(--bg-yellow);
+      box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
     }
 
-    @media (max-width: 1200px) {
-      .food-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .our-food .menu-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .our-food .menu-cta a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: #000;
+      color: #fff;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .food-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 16px 16px 0 #fbc10c;
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 1280px) {
+      .food-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      .food-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .food-card .img {
         height: 280px;
       }
     }
 
-    /* ---------- Split promos ---------- */
-    .promos {
-      background: var(--bg-cream);
-      padding: 26px 0 34px;
+    @media (max-width: 640px) {
+      .food-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .food-card .img {
+        height: 280px;
+      }
     }
 
-    .promo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .promo {
-      height: auto;
-      border-radius: 12px;
+    /* ---------- Zoom Parallax ---------- */
+    .zoom-parallax {
+      position: relative;
+      padding: 26px 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35), transparent 40%),
+        linear-gradient(180deg, #f6efe4 0%, #efe4d2 100%);
       overflow: hidden;
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      background: #fff;
     }
 
-    .promo img {
+    .zoom-parallax .stage {
+      position: relative;
+      width: max-content;
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      padding: 2px 6px;
+      animation: zoomMarquee 28s linear infinite;
+      will-change: transform;
+    }
+
+    .zoom-parallax .item {
+      flex: 0 0 auto;
+      width: clamp(340px, 42vw, 640px);
+      aspect-ratio: 1004 / 476;
+      display: block;
+      pointer-events: none;
+    }
+
+    .zoom-parallax .item > div {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.16);
+      background: transparent;
+    }
+
+    .zoom-parallax .lead-banner {
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 0, 0, 0.42), transparent 32%),
+        linear-gradient(180deg, #171717 0%, #050505 100%);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+      overflow: hidden;
+    }
+
+    .zoom-parallax .lead-banner img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.55));
+    }
+
+    .zoom-parallax .item img {
       width: 100%;
       height: 100%;
       display: block;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover;
+    }
+
+    .zoom-parallax .item:nth-child(1) { order: 1; }
+    .zoom-parallax .item:nth-child(2) { order: 2; }
+    .zoom-parallax .item:nth-child(3) { order: 3; }
+    .zoom-parallax .item:nth-child(4) { order: 4; }
+    .zoom-parallax .item:nth-child(5) { order: 5; }
+    .zoom-parallax .item:nth-child(6) { order: 6; }
+
+    @keyframes zoomMarquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
     @media (max-width: 980px) {
-      .promo-grid {
-        grid-template-columns: 1fr;
+      .zoom-parallax .stage {
+        gap: 5px;
+      }
+
+      .zoom-parallax .item {
+        width: clamp(280px, 78vw, 440px);
       }
     }
 
@@ -1149,21 +1757,22 @@
     }
 
     .store {
-      width: 230px;
+      width: auto;
       height: 70px;
       border-radius: 14px;
       border: 0;
       background: #fff;
       position: relative;
       overflow: hidden;
-      display: grid;
-      place-items: center;
-      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
     }
 
     .store img {
-      width: 100%;
+      width: auto;
       height: 100%;
       object-fit: contain;
       display: block;
@@ -1186,7 +1795,7 @@
       }
 
       .store {
-        width: 220px;
+        width: auto;
         height: 66px;
       }
     }
@@ -1239,8 +1848,8 @@
     /* ---------- Find my Howdy ---------- */
     .find-howdy {
       background:
-        radial-gradient(circle at top left, rgba(251, 193, 12, 0.18), transparent 28%),
-        linear-gradient(180deg, #f8f3ea 0%, #f5efe3 100%);
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.28), transparent 28%),
+        linear-gradient(180deg, #fbc10c 0%, #efb300 100%);
       padding: 56px 0 60px;
       border-top: 1px solid rgba(0, 0, 0, 0.06);
     }
@@ -1289,14 +1898,14 @@
       height: 44px;
       padding: 0 18px;
       border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.86);
       color: #111;
       cursor: pointer;
       font-weight: 900;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 11px;
       transition:
         transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
         background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -1307,12 +1916,12 @@
     .find-howdy .location-tab[aria-selected="true"] {
       background: #111;
       color: #fff;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
     }
 
     .find-howdy .location-tab:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
     }
 
     .find-howdy .location-grid {
@@ -1321,14 +1930,51 @@
       gap: 18px;
     }
 
+    .find-howdy .location-footer {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .find-howdy .location-footer .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 42px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+    }
+
     .find-howdy .location-card {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
+      position: relative;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 28px;
+      box-shadow: 12px 12px 0 #fbc10c;
       overflow: hidden;
+      isolation: isolate;
       transition:
         transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
         box-shadow 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .find-howdy .location-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: #fff;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .find-howdy .location-media {
@@ -1338,6 +1984,8 @@
       place-items: center;
       overflow: hidden;
       position: relative;
+      margin: 16px 16px 0;
+      border-radius: 22px;
     }
 
     .find-howdy .location-media::after {
@@ -1366,71 +2014,71 @@
     .find-howdy .location-body {
       display: grid;
       gap: 10px;
-      padding: 16px 16px 18px;
-    }
-
-    .find-howdy .location-city {
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.55;
+      padding: 16px 18px 18px;
     }
 
     .find-howdy .location-name {
       margin: 0;
-      font-size: 20px;
+      font-size: 26px;
       line-height: 1;
       text-transform: uppercase;
     }
 
-    .find-howdy .location-link {
-      color: inherit;
-      text-decoration: none;
-      width: fit-content;
-    }
-
-    .find-howdy .location-number {
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-
-    .find-howdy .location-address {
-      font-size: 13px;
-      line-height: 1.5;
-      opacity: 0.82;
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 2px;
-    }
-
-    .find-howdy .location-cta {
+    .find-howdy .location-actions {
+      display: grid;
+      gap: 10px;
       margin-top: 4px;
+    }
+
+    .find-howdy .location-cta,
+    .find-howdy .location-directions {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 40px;
-      border-radius: 10px;
-      background: linear-gradient(180deg, #f02332 0%, #d91522 100%);
-      color: #fff;
-      text-decoration: none;
-      font-size: 12px;
+      height: 48px;
+      border-radius: 12px;
+      font-size: 18px;
       font-weight: 900;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      box-shadow: 0 10px 18px rgba(226, 28, 42, 0.18);
+      text-decoration: none;
       transition:
         transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
         box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        filter 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        color 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .find-howdy .location-cta {
+      background: #000;
+      color: var(--bg-yellow);
+      box-shadow: none;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+    }
+
+    .find-howdy .location-directions {
+      background: transparent;
+      color: #000;
+      border: 1px solid #000;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        color 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     @media (hover: hover) and (pointer: fine) {
+      .food-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 16px 16px 0 #fbc10c;
+      }
+
       .find-howdy .location-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 44px rgba(0, 0, 0, 0.12);
+        transform: translate(-2px, -2px);
+        box-shadow: 16px 16px 0 #fbc10c;
       }
 
       .find-howdy .location-card:hover .location-media img {
@@ -1439,14 +2087,20 @@
 
       .find-howdy .location-cta:hover {
         transform: translateY(-2px);
-        box-shadow: 0 16px 24px rgba(226, 28, 42, 0.28);
-        filter: brightness(1.03);
+        filter: brightness(1.05);
+      }
+
+      .find-howdy .location-directions:hover {
+        transform: translateY(-2px);
+        background: rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
       }
     }
 
     .find-howdy .location-link:focus-visible,
     .find-howdy .location-tab:focus-visible,
-    .find-howdy .location-cta:focus-visible {
+    .find-howdy .location-cta:focus-visible,
+    .find-howdy .location-directions:focus-visible {
       outline: 3px solid rgba(251, 193, 12, 0.95);
       outline-offset: 3px;
     }
@@ -1473,33 +2127,54 @@
 
     /* ---------- Footer ---------- */
     .footer {
-      background: #000;
-      padding: 54px 0 26px;
+      position: relative;
+      min-height: 800px;
+      padding: 96px 0 72px;
       color: #fff;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.72)),
+        url("assets/footer-banner.png") center top / 100% auto no-repeat;
+      background-color: #000;
+      isolation: isolate;
+    }
+
+    .footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.28));
+      pointer-events: none;
+      z-index: 0;
     }
 
     .footer .cols {
+      position: relative;
+      z-index: 1;
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 28px;
+      gap: 36px;
       align-items: start;
     }
 
     .footer h5 {
-      margin: 0 0 12px;
+      margin: 0 0 14px;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
       text-transform: uppercase;
       font-weight: 900;
-      letter-spacing: 0.14em;
-      font-size: 12px;
+      letter-spacing: 0.08em;
+      font-size: 19px;
+      line-height: 1.15;
       color: var(--bg-yellow);
     }
 
     .footer a {
       display: block;
       text-decoration: none;
-      padding: 5px 0;
-      font-size: 12px;
-      opacity: 0.9;
+      padding: 7px 0;
+      font-size: 17px;
+      line-height: 1.45;
+      opacity: 0.92;
       color: #fff;
     }
 
@@ -1508,16 +2183,16 @@
     }
 
     .footer .mini {
-      font-size: 12px;
-      opacity: 0.9;
-      line-height: 1.5;
+      font-size: 17px;
+      opacity: 0.92;
+      line-height: 1.55;
       color: #fff;
     }
 
     .footer .brand {
       display: grid;
       justify-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .footer .brand,
@@ -1545,7 +2220,7 @@
 
     .footer .social {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       justify-content: center;
     }
 
@@ -1585,28 +2260,33 @@
 
     .footer .badges {
       display: grid;
-      gap: 10px;
-      margin-top: 6px;
+      gap: 12px;
+      margin-top: 8px;
     }
 
     .footer .badge-btn {
-      height: 44px;
-      border-radius: 10px;
+      min-height: 48px;
+      padding: 10px 20px;
+      border-radius: 12px;
       border: 1px solid rgba(0, 0, 0, 0.14);
       background: rgba(255, 255, 255, 0.85);
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-weight: 900;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
-      font-size: 10px;
+      font-size: 12px;
+      line-height: 1;
+      text-align: center;
       text-decoration: none;
+      box-sizing: border-box;
     }
 
     .legal {
       background: #000;
-      padding: 10px 0 12px;
+      padding: 14px 0 16px;
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
     }
@@ -1614,10 +2294,11 @@
     .legal .row {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
-      gap: 12px;
+      gap: 16px;
       align-items: center;
-      font-size: 12px;
-      opacity: 0.75;
+      font-size: 14px;
+      line-height: 1.4;
+      opacity: 0.82;
     }
 
     .legal .center {
@@ -1631,7 +2312,12 @@
     @media (max-width: 980px) {
       .footer .cols {
         grid-template-columns: 1fr 1fr;
-        gap: 18px;
+        gap: 22px;
+      }
+
+      .footer {
+        min-height: 640px;
+        padding: 72px 0 52px;
       }
 
       .footer .brand {
@@ -1641,17 +2327,23 @@
       .legal .row {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 8px;
       }
 
       .legal .right,
       .legal .center {
         justify-self: center;
       }
+
+      .footer h5,
+      .footer a,
+      .footer .mini {
+        font-size: 16px;
+      }
     }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800;900&display=swap" rel="stylesheet" />
 </head>
 
 <body>
@@ -1678,117 +2370,103 @@
 
   <main>
     <section class="hero" id="top">
-      <video class="bg" src="https://static.tossdown.com/videos/db5aee61-fa10-4e6b-8d03-ab7fb173f233.mp4" autoplay muted
-        loop playsinline preload="metadata" aria-hidden="true"></video>
-      <div class="overlay" aria-hidden="true"></div>
-      <div class="content">
-        <div class="wrap">
-          <div class="stack">
-            <h1 class="font-mind">
-              <span>New Menu</span>
-              <span>Same Good Vibes!</span>
-            </h1>
-            <a class="cta" href="#menu">View Menu</a>
+      <div class="shell">
+        <div class="intro">
+          <h1 class="font-mind">
+            <span class="hero-accent">Yeehawww!!</span>
+            <span class="hero-plain">It's Howdy time!</span>
+          </h1>
+          <p class="hero-copy">
+            Welcome to Howdy, where we're more than just a burger brand, we're a movement fueled by people like you.
+          </p>
+          <div class="hero-cta-row" aria-label="Hero actions">
+            <a class="pill" href="#menu">View Menu</a>
+          </div>
+        </div>
+        <div class="hero-media-stage" data-expand>
+          <div class="hero-media">
+            <video class="bg" src="https://static.tossdown.com/videos/93f5e4ec-283c-4807-9737-80d20719f54d.mp4" autoplay
+              muted loop playsinline preload="metadata" aria-hidden="true"></video>
+          </div>
+        </div>
+        <div class="marquee" aria-hidden="true">
+          <div class="track">
+            <div class="item"><span>Appetizers</span><span class="arrow">›</span></div>
+            <div class="item"><span>Charcoal Grilled Burgers</span><span class="arrow">›</span></div>
+            <div class="item"><span>Beef Burgers</span><span class="arrow">›</span></div>
+            <div class="item"><span>Fried Burgers</span><span class="arrow">›</span></div>
+            <div class="item"><span>Smash Burgers</span><span class="arrow">›</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
-      <div class="track">
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-      </div>
-    </div>
-
-    <section class="menu-strip" id="menu" data-reveal>
+    <section class="flavor-poster" data-reveal aria-label="Flavor poster">
       <div class="wrap">
-        <div class="cards">
-          <article class="card">
-            <div class="thumb" aria-label="Yay Cheese image">
-              <img src="assets/Yay-Cheese.png" alt="Yay Cheese" />
+        <div class="poster-card">
+          <img class="poster-cap" src="assets/cap.png" alt="" aria-hidden="true" />
+          <div class="poster-layout">
+            <div class="poster-copy">
+              <h2 class="font-mind">
+                <span>Cheesy,</span>
+                <span>Smoked,</span>
+                <span>Grilled,</span>
+                <span>Howdy!</span>
+              </h2>
+              <small>
+                <span>Built with big flavor, crisp texture,</span>
+                <span>and a fresh finish that keeps the whole composition feeling alive.</span>
+              </small>
+              <a class="poster-cta" href="#order">Order Now</a>
             </div>
-            <div class="head">
-              <h3 class="font-mind">Yay Cheese</h3>
-              <p>Signature cheesy burger with a saucy kick.</p>
-              <button class="btn-red" type="button">Order Now</button>
+            <div class="poster-visual" aria-label="Feature image collage">
+              <div class="poster-panel">
+                <div class="poster-slider" aria-live="off">
+                  <div class="poster-slide">
+                    <img src="assets/Yay-Cheese.png" alt="Yay Cheese burger" />
+                  </div>
+                  <div class="poster-slide">
+                    <img src="assets/Stinger.png" alt="Stinger burger" />
+                  </div>
+                  <div class="poster-slide">
+                    <img src="assets/Crispy%20Bae.png" alt="Crispy Bae burger" />
+                  </div>
+                  <div class="poster-slide">
+                    <img src="assets/Value-meal.png" alt="Value Burger meal" />
+                  </div>
+                  <div class="poster-slide">
+                    <img src="assets/Kids%20Menu.png" alt="Kids Menu meal" />
+                  </div>
+                </div>
+              </div>
             </div>
-          </article>
-          <article class="card">
-            <div class="thumb" aria-label="Stinger image">
-              <img src="assets/Stinger.png" alt="Stinger" />
-            </div>
-            <div class="head">
-              <h3 class="font-mind">Stinger</h3>
-              <p>A classic with bite — spicy, crunchy, bold.</p>
-              <button class="btn-red" type="button">Order Now</button>
-            </div>
-          </article>
-          <article class="card">
-            <div class="thumb" aria-label="Crispy Bae image">
-              <img src="assets/Crispy%20Bae.png" alt="Crispy Bae" />
-            </div>
-            <div class="head">
-              <h3 class="font-mind">Crispy Bae</h3>
-              <p>Crispy chicken, melty cheese, house sauce.</p>
-              <button class="btn-red" type="button">Order Now</button>
-            </div>
-          </article>
-          <article class="card">
-            <div class="thumb" aria-label="Value Burger image">
-              <img src="assets/Value-meal.png" alt="Value Burger" />
-            </div>
-            <div class="head">
-              <h3 class="font-mind">Value Burger</h3>
-              <p>Big flavor. Friendly price. Everyday go-to.</p>
-              <button class="btn-red" type="button">Order Now</button>
-            </div>
-          </article>
-          <article class="card">
-            <div class="thumb" aria-label="Kids Menu image">
-              <img src="assets/Kids%20Menu.png" alt="Kids Menu" />
-            </div>
-            <div class="head">
-              <h3 class="font-mind">Kids Menu</h3>
-              <p>Little bites, big smiles — made for kids.</p>
-              <button class="btn-red" type="button">Order Now</button>
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="about" id="about" data-reveal>
-      <div class="wrap">
-        <div class="grid">
-          <div class="left">
-            <div class="media" aria-label="About us image">
-              <img src="assets/howdypakistan_1777581267_3886954654450063637_3268465158-2.png" alt="Howdy" />
-            </div>
+      <div class="about-scene" aria-hidden="true">
+        <div class="about-house">
+          <img src="assets/bg-about.png" alt="" />
+        </div>
+        <div class="about-rider">
+          <div class="about-rider-inner">
+            <img data-src="assets/horseee.png" alt="" loading="lazy" decoding="async" />
           </div>
-          <div class="copy">
-            <h2 class="font-mind">About Us</h2>
-            <p>
-              There are some bites you never forget. Your first road trip meal. Late-night cravings with friends. And
-              that one burger that ruined all others
-              for you.
-            </p>
-            <p class="kicker shimmer font-mind">That’s the feeling Howdy was built on.</p>
-            <p>
-              Not just a burger place — but a flavor people come back for. Years of experimenting, grilling over real
-              charcoal, and chasing the perfect bite
-              led to something simple: burgers that feel unforgettable from the very first bite.
-            </p>
-            <a class="learn font-mind" href="#vib">Learn More</a>
-          </div>
+        </div>
+      </div>
+      <div class="about-copy">
+        <div class="about-copy-inner">
+          <h2 class="font-mind">
+            <span class="about-kicker">IT'S HAPPYNING SINCE</span>
+            <span class="about-date">12-12-12!</span>
+          </h2>
+          <p>
+            The day Howdy! was born. Folks say that "Happiness Happened" that day,
+            hence the slogan "It's Happyning."
+          </p>
+          <a class="about-cta" href="#vib">Learn More</a>
         </div>
       </div>
     </section>
@@ -1830,21 +2508,29 @@
         <h2 class="big-bite font-mind">Let’s Howdy!</h2>
         <div class="toprow" aria-label="Menu header row">
           <div class="intro">
-            Discover our favorites. Order directly<br />
-            from us — or simply drop by.
+            Discover our favorites. Order directly from us — or simply drop by.
           </div>
           <div class="tabs" role="tablist" aria-label="Menu categories">
-            <button class="tab" type="button" role="tab" aria-selected="true" data-tab="appetizers">Appetizers</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="charcoal">Charcoal Grilled
-              Burgers</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="beef">Beef Burgers</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="fried">Fried Burgers</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="smash">Smash Burgers</button>
+            <button class="tab" type="button" role="tab" aria-selected="true" data-tab="appetizers">
+              <span class="tab-label">Appetizers</span>
+            </button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="charcoal">
+              <span class="tab-label">Charcoal Grilled Burgers</span>
+            </button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="beef">
+              <span class="tab-label">Beef Burgers</span>
+            </button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="fried">
+              <span class="tab-label">Fried Burgers</span>
+            </button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="smash">
+              <span class="tab-label">Smash Burgers</span>
+            </button>
           </div>
         </div>
 
         <div class="food-grid" id="foodGrid">
-          <article class="food-card" data-cat="charcoal">
+          <article class="food-card" data-cat="appetizers charcoal beef fried smash">
             <div class="img" aria-label="Rango Tango image">
               <img src="https://static.tossdown.com/images/ad73c768-6a0a-4202-8782-57a52673984a.webp"
                 alt="Rango Tango" />
@@ -1856,7 +2542,7 @@
               <span class="order font-mind">Order Now</span>
             </div>
           </article>
-          <article class="food-card" data-cat="charcoal">
+          <article class="food-card" data-cat="appetizers charcoal beef fried smash">
             <div class="img" aria-label="Wrangler image">
               <img src="https://static.tossdown.com/images/55c3bb7b-2134-4526-85c6-6cb867251158.webp" alt="Wrangler" />
             </div>
@@ -1867,7 +2553,7 @@
               <span class="order font-mind">Order Now</span>
             </div>
           </article>
-          <article class="food-card" data-cat="charcoal">
+          <article class="food-card" data-cat="appetizers charcoal beef fried smash">
             <div class="img" aria-label="Rango Tango image">
               <img src="https://static.tossdown.com/images/ad73c768-6a0a-4202-8782-57a52673984a.webp"
                 alt="Rango Tango" />
@@ -1879,7 +2565,7 @@
               <span class="order font-mind">Order Now</span>
             </div>
           </article>
-          <article class="food-card" data-cat="charcoal">
+          <article class="food-card" data-cat="appetizers charcoal beef fried smash">
             <div class="img" aria-label="Wrangler image">
               <img src="https://static.tossdown.com/images/55c3bb7b-2134-4526-85c6-6cb867251158.webp" alt="Wrangler" />
             </div>
@@ -1890,27 +2576,42 @@
               <span class="order font-mind">Order Now</span>
             </div>
           </article>
+        </div>
+        <div class="menu-cta">
+          <a href="#menu">View Full Menu</a>
         </div>
       </div>
     </section>
 
-    <section class="promos" id="promos" data-reveal>
-      <div class="wrap">
-        <div class="promo-grid">
-          <div class="promo" aria-label="Promo image 1">
-            <img src="https://static.tossdown.com/images/e234d23f-e19f-4e5a-b824-383ead0f1374.webp" alt="" />
+    <section class="zoom-parallax" id="promos" aria-label="Featured images parallax">
+      <div class="stage">
+        <figure class="item">
+          <div class="lead-banner" aria-label="Primary burger banner">
+            <img src="assets/main.jpeg" alt="Howdy burger hero banner" />
           </div>
-          <div class="promo" aria-label="Promo image 2">
-            <img src="https://static.tossdown.com/images/2b91e07e-d103-4c66-b1e7-3687aa1c99c7.webp" alt="" />
-          </div>
-        </div>
+        </figure>
+        <figure class="item">
+          <div><img src="assets/2.jpg" alt="Parallax image 2" /></div>
+        </figure>
+        <figure class="item">
+          <div><img src="assets/3.jpg" alt="Parallax image 3" /></div>
+        </figure>
+        <figure class="item">
+          <div><img src="assets/4.jpg" alt="Parallax image 4" /></div>
+        </figure>
+        <figure class="item">
+          <div><img src="assets/5.jpg" alt="Parallax image 5" /></div>
+        </figure>
+        <figure class="item">
+          <div><img src="assets/6.jpg" alt="Parallax image 6" /></div>
+        </figure>
       </div>
     </section>
 
     <section class="vib" id="vib" data-reveal>
       <div class="wrap">
         <div class="row">
-          <div class="txt shimmer">Get exclusive deals on the Howdy App</div>
+          <div class="txt shimmer font-mind">Get exclusive deals on the Howdy App</div>
           <div class="brand" aria-label="Howdy logo">
             <img src="assets/logo.png" alt="Howdy" />
           </div>
@@ -1942,9 +2643,12 @@
         </div>
 
         <div class="location-tabs" role="tablist" aria-label="Howdy locations by city">
-          <button class="location-tab" type="button" role="tab" aria-selected="true" data-city-tab="lahore">Lahore</button>
-          <button class="location-tab" type="button" role="tab" aria-selected="false" data-city-tab="islamabad">Islamabad</button>
-          <button class="location-tab" type="button" role="tab" aria-selected="false" data-city-tab="peshawar">Peshawar</button>
+          <button class="location-tab" type="button" role="tab" aria-selected="true"
+            data-city-tab="lahore">Lahore</button>
+          <button class="location-tab" type="button" role="tab" aria-selected="false"
+            data-city-tab="islamabad">Islamabad</button>
+          <button class="location-tab" type="button" role="tab" aria-selected="false"
+            data-city-tab="peshawar">Peshawar</button>
         </div>
 
         <div class="location-grid" aria-label="Howdy branch locations">
@@ -1953,13 +2657,13 @@
               <img src="assets/Packages.png" alt="Packages Mall" />
             </div>
             <div class="location-body">
-              <div class="location-city">Lahore</div>
               <h3 class="location-name font-mind">Packages Mall</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Packages+Mall+Lahore"
-                target="_blank" rel="noopener noreferrer">Packages Mall, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Packages+Mall+Lahore" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -1968,13 +2672,13 @@
               <img src="assets/Gulberg.png" alt="9C Gulberg" />
             </div>
             <div class="location-body">
-              <div class="location-city">Lahore</div>
               <h3 class="location-name font-mind">9C Gulberg</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=9C+Gulberg+Lahore"
-                target="_blank" rel="noopener noreferrer">9C Gulberg, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=9C+Gulberg+Lahore" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -1983,58 +2687,13 @@
               <img src="assets/Model-Town.png" alt="Model Town" />
             </div>
             <div class="location-body">
-              <div class="location-city">Lahore</div>
               <h3 class="location-name font-mind">Model Town</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Model+Town+Lahore"
-                target="_blank" rel="noopener noreferrer">Model Town, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
-            </div>
-          </article>
-
-          <article class="location-card" data-city="lahore">
-            <div class="location-media" aria-label="Emporium Mall branch image">
-              <img src="assets/Emporium-Mall.png" alt="Emporium Mall" />
-            </div>
-            <div class="location-body">
-              <div class="location-city">Lahore</div>
-              <h3 class="location-name font-mind">Emporium Mall</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Emporium+Mall+Lahore"
-                target="_blank" rel="noopener noreferrer">Emporium Mall, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
-            </div>
-          </article>
-
-          <article class="location-card" data-city="lahore">
-            <div class="location-media" aria-label="Johar Town branch image">
-              <img src="assets/Johar-Town.png" alt="Johar Town" />
-            </div>
-            <div class="location-body">
-              <div class="location-city">Lahore</div>
-              <h3 class="location-name font-mind">Johar Town</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Johar+Town+Lahore"
-                target="_blank" rel="noopener noreferrer">Johar Town, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
-            </div>
-          </article>
-
-          <article class="location-card" data-city="lahore">
-            <div class="location-media" aria-label="Pine Avenue branch image">
-              <img src="assets/Pine-Avenue.png" alt="Pine Avenue" />
-            </div>
-            <div class="location-body">
-              <div class="location-city">Lahore</div>
-              <h3 class="location-name font-mind">Pine Avenue</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Pine+Avenue+Lahore"
-                target="_blank" rel="noopener noreferrer">Pine Avenue, Lahore</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Model+Town+Lahore" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -2043,13 +2702,13 @@
               <img src="assets/Centauras.png" alt="Centaurus Mall" />
             </div>
             <div class="location-body">
-              <div class="location-city">Islamabad</div>
               <h3 class="location-name font-mind">Centaurus Mall</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Centaurus+Mall+Islamabad"
-                target="_blank" rel="noopener noreferrer">Centaurus Mall, Islamabad</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Centaurus+Mall+Islamabad" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -2058,13 +2717,13 @@
               <img src="assets/F7.png" alt="F-7" />
             </div>
             <div class="location-body">
-              <div class="location-city">Islamabad</div>
               <h3 class="location-name font-mind">F-7</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=F-7+Islamabad"
-                target="_blank" rel="noopener noreferrer">F-7, Islamabad</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=F-7+Islamabad" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -2073,13 +2732,13 @@
               <img src="assets/Giga-Mall.png" alt="Giga Mall" />
             </div>
             <div class="location-body">
-              <div class="location-city">Islamabad</div>
               <h3 class="location-name font-mind">Giga Mall</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Giga+Mall+Islamabad"
-                target="_blank" rel="noopener noreferrer">Giga Mall, Islamabad</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Giga+Mall+Islamabad" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
 
@@ -2088,20 +2747,24 @@
               <img src="assets/Peshawar.png" alt="Peshawar" />
             </div>
             <div class="location-body">
-              <div class="location-city">Peshawar</div>
               <h3 class="location-name font-mind">Saddar</h3>
-              <a class="location-link location-number" href="tel:+9242111146939">042-11-11-46939</a>
-              <a class="location-link location-address"
-                href="https://www.google.com/maps/search/?api=1&query=Saddar+Peshawar"
-                target="_blank" rel="noopener noreferrer">Saddar, Peshawar</a>
-              <a class="location-cta" href="#order">Order Now</a>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Saddar+Peshawar" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
             </div>
           </article>
+        </div>
+
+        <div class="location-footer">
+          <a class="pill" href="#footer">VIEW ALL LOCATIONS</a>
         </div>
       </div>
     </section>
 
-    <footer class="footer" data-reveal>
+    <footer class="footer" id="footer" data-reveal>
       <div class="wrap">
         <div class="cols">
           <div class="brand" aria-label="Footer brand">
@@ -2169,16 +2832,11 @@
 
     <div class="marquee" aria-hidden="true">
       <div class="track">
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
-        <div class="item"><span>Order Now</span><span class="arrow">›</span></div>
+        <div class="item"><span>Appetizers</span><span class="arrow">›</span></div>
+        <div class="item"><span>Charcoal Grilled Burgers</span><span class="arrow">›</span></div>
+        <div class="item"><span>Beef Burgers</span><span class="arrow">›</span></div>
+        <div class="item"><span>Fried Burgers</span><span class="arrow">›</span></div>
+        <div class="item"><span>Smash Burgers</span><span class="arrow">›</span></div>
       </div>
     </div>
 
@@ -2197,6 +2855,7 @@
     (function () {
       // Scroll reveal (premium section entrances)
       const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
+      const expandEls = Array.from(document.querySelectorAll("[data-expand]"));
       const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!reduceMotion && revealEls.length) {
         const io = new IntersectionObserver(
@@ -2234,13 +2893,205 @@
         for (const el of revealEls) el.classList.add("in-view");
       }
 
+      const hero = document.querySelector(".hero");
+      const heroMedia = document.querySelector(".hero .hero-media");
+      const aboutSection = document.querySelector(".about");
+      const aboutRiderImg = aboutSection ? aboutSection.querySelector(".about-rider img[data-src]") : null;
+      let heroExpansionProgress = 0;
+      let heroScrollLocked = window.scrollY < 2;
+      let touchStartY = null;
+      let touchActive = false;
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function applyHeroProgress(progress) {
+        if (!heroMedia) return;
+
+        heroExpansionProgress = clamp(progress, 0, 1);
+        const width = 65 + heroExpansionProgress * 35;
+        const y = 12 - heroExpansionProgress * 12;
+        const scale = 0.92 + heroExpansionProgress * 0.08;
+        const opacity = 0.92 + heroExpansionProgress * 0.08;
+        heroMedia.style.setProperty("--hero-media-width", `${width}vw`);
+        heroMedia.style.setProperty("--hero-media-y", `${y}px`);
+        heroMedia.style.setProperty("--hero-media-scale", String(scale));
+        heroMedia.style.setProperty("--hero-media-opacity", String(opacity));
+        heroMedia.classList.toggle("in-view", heroExpansionProgress >= 1);
+      }
+
+      function releaseHeroScroll() {
+        if (!heroScrollLocked) return;
+        heroScrollLocked = false;
+        document.documentElement.style.overflow = "";
+        document.body.style.overflow = "";
+        document.documentElement.style.overscrollBehavior = "";
+        document.body.style.overscrollBehavior = "";
+        window.removeEventListener("wheel", onHeroWheel, wheelOptions);
+        window.removeEventListener("touchstart", onHeroTouchStart, touchOptions);
+        window.removeEventListener("touchmove", onHeroTouchMove, touchOptions);
+        window.removeEventListener("touchend", onHeroTouchEnd, touchOptions);
+        window.removeEventListener("touchcancel", onHeroTouchEnd, touchOptions);
+        window.removeEventListener("keydown", onHeroKeydown, true);
+      }
+
+      function finishHeroIfReady() {
+        if (heroExpansionProgress >= 1) {
+          releaseHeroScroll();
+        }
+      }
+
+      function advanceHeroBy(deltaY) {
+        if (!heroScrollLocked || reduceMotion) return;
+        const direction = deltaY > 0 ? 1 : deltaY < 0 ? -1 : 0;
+        if (direction <= 0) return;
+        const step = clamp(deltaY / 1400, 0, 0.18);
+        applyHeroProgress(heroExpansionProgress + step);
+        finishHeroIfReady();
+      }
+
+      const wheelOptions = { passive: false };
+      const touchOptions = { passive: false };
+
+      function onHeroWheel(event) {
+        if (!heroScrollLocked) return;
+        event.preventDefault();
+        advanceHeroBy(event.deltaY);
+      }
+
+      function onHeroTouchStart(event) {
+        if (!heroScrollLocked || !event.touches || !event.touches.length) return;
+        touchActive = true;
+        touchStartY = event.touches[0].clientY;
+      }
+
+      function onHeroTouchMove(event) {
+        if (!heroScrollLocked || !touchActive || !event.touches || !event.touches.length) return;
+        event.preventDefault();
+        const nextY = event.touches[0].clientY;
+        const deltaY = touchStartY === null ? 0 : touchStartY - nextY;
+        touchStartY = nextY;
+        advanceHeroBy(deltaY);
+      }
+
+      function onHeroTouchEnd() {
+        touchActive = false;
+        touchStartY = null;
+      }
+
+      function onHeroKeydown(event) {
+        if (!heroScrollLocked) return;
+        const key = event.key;
+        if (key === "ArrowDown" || key === "PageDown" || key === " " || key === "Spacebar" || key === "End") {
+          event.preventDefault();
+          advanceHeroBy(120);
+        }
+      }
+
+      if (!reduceMotion && expandEls.length) {
+        applyHeroProgress(0);
+        if (heroScrollLocked) {
+          document.documentElement.style.overflow = "hidden";
+          document.body.style.overflow = "hidden";
+          document.documentElement.style.overscrollBehavior = "none";
+          document.body.style.overscrollBehavior = "none";
+          window.addEventListener("wheel", onHeroWheel, wheelOptions);
+          window.addEventListener("touchstart", onHeroTouchStart, touchOptions);
+          window.addEventListener("touchmove", onHeroTouchMove, touchOptions);
+          window.addEventListener("touchend", onHeroTouchEnd, touchOptions);
+          window.addEventListener("touchcancel", onHeroTouchEnd, touchOptions);
+          window.addEventListener("keydown", onHeroKeydown, true);
+        }
+      } else {
+        applyHeroProgress(1);
+        releaseHeroScroll();
+      }
+
+      function updateAboutParallax() {
+        if (!aboutSection || reduceMotion) return;
+        const rect = aboutSection.getBoundingClientRect();
+        const viewportH = window.innerHeight || 1;
+        const progress = clamp((viewportH - rect.top) / (viewportH + rect.height), 0, 1);
+        const houseY = (progress - 0.5) * 22;
+        const riderY = (progress - 0.5) * -40;
+        const riderX = (0.5 - progress) * 26;
+        aboutSection.style.setProperty("--about-house-y", `${houseY.toFixed(2)}px`);
+        aboutSection.style.setProperty("--about-rider-y", `${riderY.toFixed(2)}px`);
+        aboutSection.style.setProperty("--about-rider-x", `${riderX.toFixed(2)}px`);
+      }
+
+      function loadAboutRider() {
+        if (!aboutSection || !aboutRiderImg) return;
+        const src = aboutRiderImg.getAttribute("data-src");
+        if (!src || aboutRiderImg.getAttribute("src")) {
+          aboutSection.classList.add("about-rider-ready");
+          requestAnimationFrame(() => aboutSection.classList.add("about-rider-visible"));
+          return;
+        }
+
+        aboutRiderImg.addEventListener(
+          "load",
+          () => {
+            aboutSection.classList.add("about-rider-ready");
+            requestAnimationFrame(() => aboutSection.classList.add("about-rider-visible"));
+          },
+          { once: true }
+        );
+        aboutRiderImg.setAttribute("src", src);
+      }
+
+      if (aboutSection && !reduceMotion) {
+        let aboutTicking = false;
+        let aboutHorseTimer = null;
+        let aboutHorseQueued = false;
+        const onAboutMotion = () => {
+          if (aboutTicking) return;
+          aboutTicking = true;
+          requestAnimationFrame(() => {
+            updateAboutParallax();
+            aboutTicking = false;
+          });
+        };
+
+        updateAboutParallax();
+        window.addEventListener("scroll", onAboutMotion, { passive: true });
+        window.addEventListener("resize", onAboutMotion, { passive: true });
+
+        const aboutIo = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              if (aboutHorseQueued) continue;
+              aboutHorseQueued = true;
+              if (aboutHorseTimer) clearTimeout(aboutHorseTimer);
+              aboutHorseTimer = window.setTimeout(() => {
+                loadAboutRider();
+                onAboutMotion();
+                aboutIo.disconnect();
+              }, 1000);
+            }
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+
+        aboutIo.observe(aboutSection);
+      } else if (aboutSection) {
+        loadAboutRider();
+        aboutSection.classList.add("about-rider-ready");
+        aboutSection.classList.add("about-rider-visible");
+      }
+
       const tabs = Array.from(document.querySelectorAll(".tab"));
       const cards = Array.from(document.querySelectorAll(".food-card"));
       const defaultCat = "charcoal";
 
       function setTab(cat) {
         for (const t of tabs) t.setAttribute("aria-selected", String(t.dataset.tab === cat));
-        for (const c of cards) c.style.display = c.dataset.cat === cat ? "" : "none";
+        for (const c of cards) {
+          const cats = (c.dataset.cat || "").split(/\s+/).filter(Boolean);
+          c.style.display = cats.includes(cat) ? "" : "none";
+        }
       }
 
       for (const tab of tabs) {
