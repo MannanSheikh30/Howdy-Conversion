@@ -38,6 +38,15 @@
       font-family: "Polysans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      overflow-x: clip;
+    }
+
     a {
       color: inherit;
     }
@@ -192,6 +201,172 @@
       box-shadow: var(--shadow);
     }
 
+    .menu-toggle,
+    .mobile-order,
+    .mobile-menu,
+    .mobile-bottom-cta {
+      display: none;
+    }
+
+    .menu-toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      color: #111;
+    }
+
+    .menu-icon {
+      width: 22px;
+      height: 16px;
+      position: relative;
+      display: block;
+    }
+
+    .menu-icon span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transform-origin: center;
+      transition: transform 180ms ease, top 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-icon span:nth-child(1) {
+      top: 0;
+    }
+
+    .menu-icon span:nth-child(2) {
+      top: 7px;
+    }
+
+    .menu-icon span:nth-child(3) {
+      top: 14px;
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
+      top: 7px;
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
+      top: 7px;
+      transform: rotate(-45deg);
+    }
+
+    .mobile-menu {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: calc(100% + 10px);
+      z-index: 60;
+      background: #fff3cd;
+      border-radius: 20px;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 14px;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    .mobile-menu-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .mobile-menu-title {
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .mobile-menu-close {
+      appearance: none;
+      border: 0;
+      background: rgba(0, 0, 0, 0.08);
+      color: #111;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .mobile-menu a {
+      text-decoration: none;
+      color: #111;
+      font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      line-height: 1;
+      padding: 14px 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .mobile-menu .menu-order {
+      background: #111;
+      color: var(--bg-yellow);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-bottom-cta {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(16px);
+      z-index: 70;
+      align-items: center;
+      justify-content: center;
+      min-width: min(90vw, 340px);
+      height: 52px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: #111;
+      color: var(--bg-yellow);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.26);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .mobile-bottom-cta.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
     .logo {
       width: 96px;
       height: 96px;
@@ -221,6 +396,139 @@
         gap: 12px;
         font-size: 10px;
         overflow: hidden;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 0;
+        pointer-events: auto;
+        z-index: 80;
+      }
+
+      .topbar .wrap {
+        padding: 10px 12px 0;
+        position: relative;
+      }
+
+      .topbar .bar {
+        height: 68px;
+        padding: 0 12px;
+        border-radius: 18px;
+        position: relative;
+      }
+
+      .topbar .inner {
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        position: relative;
+      }
+
+      .topbar .logo {
+        grid-area: logo;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 64px;
+        height: 64px;
+        margin: 0;
+        z-index: 2;
+      }
+
+      .topbar .nav {
+        display: none;
+      }
+
+      .menu-toggle,
+      .mobile-order,
+      .mobile-bottom-cta {
+        display: inline-flex;
+      }
+
+      .menu-toggle {
+        justify-self: start;
+      }
+
+      .mobile-order {
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: #111;
+        color: var(--bg-yellow);
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: "Mind Boggle DEMO", "Mind_Boggle_DEMO", Impact, Haettenschweiler, "Arial Black", sans-serif;
+        font-size: 12px;
+        font-weight: 900;
+        box-shadow: var(--shadow);
+      }
+
+      .topbar.menu-open .mobile-menu {
+        display: flex;
+      }
+
+      .topbar.menu-open .menu-toggle {
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .hero {
+        padding: 20px 0 0;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 120;
+        border-radius: 0;
+        padding: calc(18px + env(safe-area-inset-top)) 18px 18px;
+        background:
+          radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 30%),
+          #0b0b0b;
+        box-shadow: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+      }
+
+      .mobile-menu-head {
+        padding-bottom: 4px;
+      }
+
+      .mobile-menu-title {
+        color: #fff;
+      }
+
+      .mobile-menu-close {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .mobile-menu a {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .mobile-menu .menu-order {
+        background: #fff;
+        color: #0b0b0b;
       }
     }
 
@@ -385,7 +693,7 @@
 
     @media (max-width: 640px) {
       .hero {
-        padding: 126px 0 0;
+        padding: 104px 0 0;
       }
 
       .hero h1 {
@@ -396,6 +704,10 @@
       .hero .hero-copy {
         padding-left: 16px;
         padding-right: 16px;
+      }
+
+      .hero .hero-cta-row {
+        margin-bottom: 20px;
       }
 
       .hero .hero-media {
@@ -426,6 +738,20 @@
       .hero .hero-cta-row .pill {
         height: 40px;
         font-size: 14px;
+      }
+
+      .hero .hero-media-stage {
+        position: relative;
+        top: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 12px;
+      }
+
+      .hero .hero-media {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 4 / 3;
       }
     }
 
@@ -712,6 +1038,47 @@
       }
     }
 
+    @media (max-width: 640px) {
+      .flavor-poster {
+        padding: 18px 0 28px;
+      }
+
+      .poster-card {
+        border-radius: 22px;
+      }
+
+      .poster-copy {
+        padding: 16px 16px 0;
+        text-align: center;
+      }
+
+      .poster-copy h2 {
+        left: 0;
+        margin: 0 auto;
+        font-size: clamp(50px, 15vw, 72px);
+      }
+
+      .poster-copy small {
+        max-width: 100%;
+        margin-top: 14px;
+        font-size: 15px;
+      }
+
+      .poster-copy .poster-cta {
+        margin-top: 18px;
+        margin-bottom: 20px;
+      }
+
+      .poster-visual,
+      .poster-slider {
+        min-height: 440px;
+      }
+
+      .poster-visual {
+        margin-top: 20px;
+      }
+    }
+
     /* ---------- New menu cards ---------- */
     .menu-strip {
       background: var(--bg-cream);
@@ -880,6 +1247,12 @@
       }
     }
 
+    @media (max-width: 560px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ---------- About ---------- */
     .about {
       position: relative;
@@ -1040,8 +1413,8 @@
 
     @media (max-width: 980px) {
       .about {
-        min-height: 740px;
-        height: 740px;
+        min-height: 720px;
+        height: 720px;
       }
 
       .about-house img {
@@ -1050,9 +1423,9 @@
 
       .about-rider {
         top: 24px;
-        right: -12vw;
+        right: -10vw;
         bottom: 0;
-        width: min(74vw, 520px);
+        width: min(81.6vw, 552px);
         max-width: none;
       }
 
@@ -1077,6 +1450,56 @@
         margin-top: 20px;
         font-size: 16px;
         max-width: 340px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about {
+        min-height: 580px;
+        height: 580px;
+      }
+
+      .about-scene {
+        overflow: hidden;
+      }
+
+      .about-house {
+        inset: 0 -10vw 0 -10vw;
+      }
+
+      .about-house img {
+        object-position: center bottom;
+      }
+
+      .about-rider {
+        top: 12px;
+        right: -2vw;
+        bottom: 0;
+        width: min(62.4vw, 384px);
+        max-width: none;
+      }
+
+      .about-copy {
+        padding: 34px 16px 24px;
+      }
+
+      .about-copy-inner {
+        max-width: 100%;
+      }
+
+      .about-copy h2 .about-kicker {
+        font-size: clamp(26px, 8vw, 36px);
+      }
+
+      .about-copy h2 .about-date {
+        font-size: clamp(54px, 16vw, 82px);
+      }
+
+      .about-copy p {
+        max-width: 100%;
+        font-size: 15px;
+        line-height: 1.45;
+        margin-top: 16px;
       }
     }
 
@@ -1228,6 +1651,16 @@
       .wildest .center img {
         max-width: min(480px, 84vw);
         max-height: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wildest .stack-cards {
+        width: min(360px, 100%);
+      }
+
+      .wildest .center img {
+        max-width: min(420px, 92vw);
       }
     }
 
@@ -1421,15 +1854,28 @@
       }
 
       .tabs {
-        flex-direction: column;
-        gap: 4px;
+        flex-direction: row;
+        gap: 8px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 12px;
+        scroll-snap-type: x proximity;
       }
 
       .tab {
-        height: 54px;
-        font-size: 15px;
-        width: 100%;
-        padding: 0 14px;
+        height: 48px;
+        font-size: 13px;
+        flex: 0 0 auto;
+        min-width: max-content;
+        padding: 0 16px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.14);
+        scroll-snap-align: start;
+      }
+
+      .tab[aria-selected="true"] {
+        background: #111;
+        color: #ffd468;
       }
 
       .tab::after {
@@ -1437,9 +1883,8 @@
       }
 
       .tab-label {
-        width: 100%;
-        min-height: 42px;
-        padding: 0 14px;
+        min-height: 1px;
+        padding: 0;
       }
     }
 
@@ -1584,17 +2029,77 @@
       }
 
       .food-card .img {
-        height: 280px;
+        height: 220px;
+      }
+
+      .food-card h4 {
+        font-size: 22px;
+      }
+
+      .food-card .desc,
+      .food-card .price {
+        font-size: 14px;
+      }
+
+      .food-card .price {
+        font-size: 22px;
+      }
+
+      .food-card .order {
+        height: 42px;
+        font-size: 14px;
       }
     }
 
     @media (max-width: 640px) {
+      .our-food {
+        padding-bottom: 40px;
+      }
+
       .food-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
       }
 
       .food-card .img {
-        height: 280px;
+        height: 160px;
+        margin: 10px 10px 0;
+        border-radius: 16px;
+      }
+
+      .food-card {
+        border-radius: 20px;
+        box-shadow: 8px 8px 0 #fbc10c;
+      }
+
+      .food-card .meta {
+        padding: 10px 10px 12px;
+      }
+
+      .food-card h4 {
+        font-size: 16px;
+      }
+
+      .food-card .desc {
+        margin-top: 6px;
+        font-size: 11px;
+        min-height: 34px;
+      }
+
+      .food-card .price {
+        margin-top: 8px;
+        font-size: 16px;
+      }
+
+      .food-card .order {
+        margin-top: 10px;
+        height: 34px;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+      }
+
+      .our-food .big-bite {
+        font-size: clamp(58px, 17vw, 94px);
       }
     }
 
@@ -1627,7 +2132,7 @@
       pointer-events: none;
     }
 
-    .zoom-parallax .item > div {
+    .zoom-parallax .item>div {
       position: relative;
       overflow: hidden;
       width: 100%;
@@ -1662,12 +2167,29 @@
       object-fit: cover;
     }
 
-    .zoom-parallax .item:nth-child(1) { order: 1; }
-    .zoom-parallax .item:nth-child(2) { order: 2; }
-    .zoom-parallax .item:nth-child(3) { order: 3; }
-    .zoom-parallax .item:nth-child(4) { order: 4; }
-    .zoom-parallax .item:nth-child(5) { order: 5; }
-    .zoom-parallax .item:nth-child(6) { order: 6; }
+    .zoom-parallax .item:nth-child(1) {
+      order: 1;
+    }
+
+    .zoom-parallax .item:nth-child(2) {
+      order: 2;
+    }
+
+    .zoom-parallax .item:nth-child(3) {
+      order: 3;
+    }
+
+    .zoom-parallax .item:nth-child(4) {
+      order: 4;
+    }
+
+    .zoom-parallax .item:nth-child(5) {
+      order: 5;
+    }
+
+    .zoom-parallax .item:nth-child(6) {
+      order: 6;
+    }
 
     @keyframes zoomMarquee {
       0% {
@@ -1686,6 +2208,20 @@
 
       .zoom-parallax .item {
         width: clamp(280px, 78vw, 440px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .zoom-parallax {
+        padding: 18px 0;
+      }
+
+      .zoom-parallax .stage {
+        gap: 4px;
+      }
+
+      .zoom-parallax .item {
+        width: clamp(250px, 84vw, 360px);
       }
     }
 
@@ -1800,6 +2336,33 @@
       }
     }
 
+    @media (max-width: 640px) {
+      .vib {
+        padding: 20px 0;
+      }
+
+      .vib .txt {
+        font-size: 24px;
+        text-align: center;
+      }
+
+      .stores {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .store {
+        width: 100%;
+        height: 58px;
+      }
+
+      .vib .brand {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
     /* ---------- Pre-footer image ---------- */
     .prefooter {
       position: relative;
@@ -1841,7 +2404,11 @@
       }
 
       .prefooter .cta {
-        bottom: 22px;
+        bottom: 18px;
+        height: 40px;
+        padding: 0 14px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
       }
     }
 
@@ -2116,12 +2683,104 @@
     }
 
     @media (max-width: 640px) {
+      .find-howdy {
+        background:
+          radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 28%),
+          #0b0b0b;
+      }
+
+      .find-howdy .top {
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .find-howdy .eyebrow,
+      .find-howdy h2,
+      .find-howdy .sub {
+        color: #fff;
+      }
+
+      .find-howdy .sub {
+        opacity: 0.82;
+      }
+
       .find-howdy .location-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 14px;
+        overflow-x: auto;
+        padding: 4px 2px 12px;
+        margin: 0 -2px;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .find-howdy .location-tabs {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: none;
       }
 
       .find-howdy .location-tab {
-        flex: 1 1 calc(50% - 10px);
+        flex: 0 0 auto;
+        white-space: nowrap;
+        scroll-snap-align: start;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .find-howdy .location-tabs {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0 2px 8px;
+        margin: 0 -2px 18px;
+        gap: 8px;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .find-howdy .location-tab[aria-selected="true"] {
+        background: #fff;
+        color: #0b0b0b;
+        box-shadow: none;
+      }
+
+      .find-howdy .location-card {
+        flex: 0 0 78vw;
+        max-width: 78vw;
+        scroll-snap-align: start;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+        border-color: #111;
+      }
+
+      .find-howdy .location-media {
+        margin: 12px 12px 0;
+        border-radius: 18px;
+        aspect-ratio: 4 / 3.4;
+      }
+
+      .find-howdy .location-body {
+        padding: 12px 12px 14px;
+      }
+
+      .find-howdy .location-name {
+        font-size: 18px;
+      }
+
+      .find-howdy .location-cta,
+      .find-howdy .location-directions {
+        height: 42px;
+        font-size: 12px;
+      }
+
+      .find-howdy .location-footer {
+        margin-top: 18px;
+      }
+
+      .find-howdy .location-footer .pill {
+        background: #fff;
+        color: #0b0b0b;
       }
     }
 
@@ -2134,7 +2793,7 @@
       overflow: hidden;
       background:
         linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.72)),
-        url("assets/footer-banner.png") center top / 100% auto no-repeat;
+        url("assets/footer-banner.png") right top / cover no-repeat;
       background-color: #000;
       isolation: isolate;
     }
@@ -2143,7 +2802,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.28));
+      background: none;
       pointer-events: none;
       z-index: 0;
     }
@@ -2155,6 +2814,46 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 36px;
       align-items: start;
+    }
+
+    .footer-accordion {
+      min-width: 0;
+    }
+
+    .footer-accordion-heading {
+      margin: 0 0 14px;
+    }
+
+    .footer-accordion-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      padding: 0;
+      cursor: default;
+      font: inherit;
+      text-align: left;
+    }
+
+    .footer-accordion-icon {
+      display: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 18px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .footer-accordion-panel {
+      display: block;
     }
 
     .footer h5 {
@@ -2287,7 +2986,6 @@
     .legal {
       background: #000;
       padding: 14px 0 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
       color: #fff;
     }
 
@@ -2341,6 +3039,72 @@
         font-size: 16px;
       }
     }
+
+    @media (max-width: 640px) {
+      .footer {
+        min-height: auto;
+        padding: 56px 0 40px;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.72)),
+          url("assets/footer-banner.png") right top / cover no-repeat;
+      }
+
+      .footer .cols {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .footer .brand {
+        gap: 12px;
+      }
+
+      .footer .brand .mark {
+        width: 140px;
+        height: 140px;
+      }
+
+      .footer h5 {
+        margin-bottom: 10px;
+      }
+
+      .footer-accordion {
+        padding-top: 12px;
+      }
+
+      .footer-accordion-heading {
+        margin: 0;
+      }
+
+      .footer-accordion-toggle {
+        cursor: pointer;
+        padding: 6px 0;
+      }
+
+      .footer-accordion-icon {
+        display: inline-flex;
+      }
+
+      .footer-accordion-panel {
+        display: none;
+        padding: 10px 0 2px;
+      }
+
+      .footer-accordion.is-open .footer-accordion-panel {
+        display: block;
+      }
+
+      .footer-accordion.is-open .footer-accordion-icon {
+        transform: rotate(45deg);
+      }
+
+      .footer .footer-accordion-toggle {
+        font-size: 16px;
+      }
+
+      .legal .row {
+        font-size: 12px;
+      }
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -2351,6 +3115,13 @@
     <div class="wrap">
       <div class="bar">
         <div class="inner">
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+            <span class="menu-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
           <nav class="nav" aria-label="Primary">
             <a href="#menu">Menu</a>
             <a href="#find">Find My Howdy’s</a>
@@ -2358,6 +3129,7 @@
           <a class="logo" href="#top" aria-label="Howdy">
             <img src="assets/logo.png" alt="Howdy" />
           </a>
+          <a class="mobile-order" href="#order">Order Now</a>
           <nav class="nav" aria-label="Secondary" style="justify-content: flex-end">
             <a href="#about">About Us</a>
             <a href="#vib">Loyalty</a>
@@ -2365,6 +3137,17 @@
           </nav>
         </div>
       </div>
+      <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-head">
+          <div class="mobile-menu-title">Menu</div>
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">×</button>
+        </div>
+        <a href="#menu">Menu</a>
+        <a href="#find">Find My Howdy’s</a>
+        <a href="#about">About Us</a>
+        <a href="#vib">Loyalty</a>
+        <a class="menu-order" href="#order">Order Now</a>
+      </nav>
     </div>
   </header>
 
@@ -2591,10 +3374,10 @@
           </div>
         </figure>
         <figure class="item">
-          <div><img src="assets/2.jpg" alt="Parallax image 2" /></div>
+          <div><img src="assets/scroll-1.jpg" alt="Parallax image 2" /></div>
         </figure>
         <figure class="item">
-          <div><img src="assets/3.jpg" alt="Parallax image 3" /></div>
+          <div><img src="assets/scroll2.jpg" alt="Parallax image 3" /></div>
         </figure>
         <figure class="item">
           <div><img src="assets/4.jpg" alt="Parallax image 4" /></div>
@@ -2654,7 +3437,7 @@
         <div class="location-grid" aria-label="Howdy branch locations">
           <article class="location-card" data-city="lahore">
             <div class="location-media" aria-label="Packages Mall branch image">
-              <img src="assets/Packages.png" alt="Packages Mall" />
+              <img src="assets/packages mall.png" alt="Packages Mall" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">Packages Mall</h3>
@@ -2669,29 +3452,72 @@
 
           <article class="location-card" data-city="lahore">
             <div class="location-media" aria-label="9C Gulberg branch image">
-              <img src="assets/Gulberg.png" alt="9C Gulberg" />
+              <img src="assets/gulberg.png" alt="9C Gulberg" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">9C Gulberg</h3>
               <div class="location-actions">
                 <a class="location-cta" href="#order">Order Now</a>
-                <a class="location-directions"
-                  href="https://www.google.com/maps/search/?api=1&query=9C+Gulberg+Lahore" target="_blank"
-                  rel="noopener noreferrer">Get Directions</a>
+                <a class="location-directions" href="https://www.google.com/maps/search/?api=1&query=9C+Gulberg+Lahore"
+                  target="_blank" rel="noopener noreferrer">Get Directions</a>
               </div>
             </div>
           </article>
 
           <article class="location-card" data-city="lahore">
             <div class="location-media" aria-label="Model Town branch image">
-              <img src="assets/Model-Town.png" alt="Model Town" />
+              <img src="assets/model town.png" alt="Model Town" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">Model Town</h3>
               <div class="location-actions">
                 <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions" href="https://www.google.com/maps/search/?api=1&query=Model+Town+Lahore"
+                  target="_blank" rel="noopener noreferrer">Get Directions</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Emporium Mall branch image">
+              <img src="assets/emporium mall.png" alt="Emporium Mall" />
+            </div>
+            <div class="location-body">
+              <h3 class="location-name font-mind">Emporium Mall</h3>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
                 <a class="location-directions"
-                  href="https://www.google.com/maps/search/?api=1&query=Model+Town+Lahore" target="_blank"
+                  href="https://www.google.com/maps/search/?api=1&query=Emporium+Mall+Lahore" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Johar Town branch image">
+              <img src="assets/johar town.png" alt="Johar Town" />
+            </div>
+            <div class="location-body">
+              <h3 class="location-name font-mind">Johar Town</h3>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Johar+Town+Lahore" target="_blank"
+                  rel="noopener noreferrer">Get Directions</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="location-card" data-city="lahore">
+            <div class="location-media" aria-label="Pine Avenue branch image">
+              <img src="assets/pine avenue.png" alt="Pine Avenue" />
+            </div>
+            <div class="location-body">
+              <h3 class="location-name font-mind">Pine Avenue</h3>
+              <div class="location-actions">
+                <a class="location-cta" href="#order">Order Now</a>
+                <a class="location-directions"
+                  href="https://www.google.com/maps/search/?api=1&query=Pine+Avenue+Lahore" target="_blank"
                   rel="noopener noreferrer">Get Directions</a>
               </div>
             </div>
@@ -2699,7 +3525,7 @@
 
           <article class="location-card" data-city="islamabad">
             <div class="location-media" aria-label="Centaurus Mall branch image">
-              <img src="assets/Centauras.png" alt="Centaurus Mall" />
+              <img src="assets/centaurus mall.png" alt="Centaurus Mall" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">Centaurus Mall</h3>
@@ -2714,22 +3540,21 @@
 
           <article class="location-card" data-city="islamabad">
             <div class="location-media" aria-label="F-7 branch image">
-              <img src="assets/F7.png" alt="F-7" />
+              <img src="assets/howdy f7.png" alt="F-7" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">F-7</h3>
               <div class="location-actions">
                 <a class="location-cta" href="#order">Order Now</a>
-                <a class="location-directions"
-                  href="https://www.google.com/maps/search/?api=1&query=F-7+Islamabad" target="_blank"
-                  rel="noopener noreferrer">Get Directions</a>
+                <a class="location-directions" href="https://www.google.com/maps/search/?api=1&query=F-7+Islamabad"
+                  target="_blank" rel="noopener noreferrer">Get Directions</a>
               </div>
             </div>
           </article>
 
           <article class="location-card" data-city="islamabad">
             <div class="location-media" aria-label="Giga Mall branch image">
-              <img src="assets/Giga-Mall.png" alt="Giga Mall" />
+              <img src="assets/giga mall.png" alt="Giga Mall" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">Giga Mall</h3>
@@ -2744,15 +3569,14 @@
 
           <article class="location-card" data-city="peshawar">
             <div class="location-media" aria-label="Saddar Peshawar branch image">
-              <img src="assets/Peshawar.png" alt="Peshawar" />
+              <img src="assets/peshawar.png" alt="Peshawar" />
             </div>
             <div class="location-body">
               <h3 class="location-name font-mind">Saddar</h3>
               <div class="location-actions">
                 <a class="location-cta" href="#order">Order Now</a>
-                <a class="location-directions"
-                  href="https://www.google.com/maps/search/?api=1&query=Saddar+Peshawar" target="_blank"
-                  rel="noopener noreferrer">Get Directions</a>
+                <a class="location-directions" href="https://www.google.com/maps/search/?api=1&query=Saddar+Peshawar"
+                  target="_blank" rel="noopener noreferrer">Get Directions</a>
               </div>
             </div>
           </article>
@@ -2793,38 +3617,66 @@
               </a>
             </div>
           </div>
-          <div>
-            <h5>Useful Links</h5>
-            <a href="#find">Find my Howdy</a>
-            <a href="#about">About Us</a>
-            <a href="#top">Contact Us</a>
-            <a href="#order">Download Full Menu</a>
+          <div class="footer-accordion">
+            <h5 class="footer-accordion-heading">
+              <button class="footer-accordion-toggle" type="button" aria-expanded="false" aria-controls="footerUsefulLinks">
+                <span>Useful Links</span>
+                <span class="footer-accordion-icon" aria-hidden="true">+</span>
+              </button>
+            </h5>
+            <div class="footer-accordion-panel" id="footerUsefulLinks">
+              <a href="#find">Find my Howdy</a>
+              <a href="#about">About Us</a>
+              <a href="#top">Contact Us</a>
+              <a href="#order">Download Full Menu</a>
+            </div>
           </div>
-          <div>
-            <h5>Categories</h5>
-            <a href="#order">Charcoaled Grilled Burgers</a>
-            <a href="#order">Beef Burgers</a>
-            <a href="#order">Fried Burgers</a>
-            <a href="#order">Smash Burgers</a>
-            <a href="#vib">Mince Madness</a>
+          <div class="footer-accordion">
+            <h5 class="footer-accordion-heading">
+              <button class="footer-accordion-toggle" type="button" aria-expanded="false" aria-controls="footerCategories">
+                <span>Categories</span>
+                <span class="footer-accordion-icon" aria-hidden="true">+</span>
+              </button>
+            </h5>
+            <div class="footer-accordion-panel" id="footerCategories">
+              <a href="#order">Charcoaled Grilled Burgers</a>
+              <a href="#order">Beef Burgers</a>
+              <a href="#order">Fried Burgers</a>
+              <a href="#order">Smash Burgers</a>
+              <a href="#vib">Mince Madness</a>
+            </div>
           </div>
-          <div>
-            <h5>Locations</h5>
-            <a href="#" aria-label="Packages Mall location">Packages Mall</a>
-            <a href="#" aria-label="9C Gulberg location">9C Gulberg</a>
-            <a href="#" aria-label="Model Town location">Model Town</a>
-            <a href="#" aria-label="Emporium Mall location">Emporium Mall</a>
-            <a href="#" aria-label="Johar Town location">Johar Town</a>
-            <a href="#" aria-label="Pine Avenue location">Pine Avenue</a>
-            <a href="#" aria-label="Centaurus Mall location">Centaurus Mall</a>
-            <a href="#" aria-label="F-7 location">F-7</a>
-            <a href="#" aria-label="Giga Mall location">Giga Mall</a>
+          <div class="footer-accordion">
+            <h5 class="footer-accordion-heading">
+              <button class="footer-accordion-toggle" type="button" aria-expanded="false" aria-controls="footerLocations">
+                <span>Locations</span>
+                <span class="footer-accordion-icon" aria-hidden="true">+</span>
+              </button>
+            </h5>
+            <div class="footer-accordion-panel" id="footerLocations">
+              <a href="#" aria-label="Packages Mall location">Packages Mall</a>
+              <a href="#" aria-label="9C Gulberg location">9C Gulberg</a>
+              <a href="#" aria-label="Model Town location">Model Town</a>
+              <a href="#" aria-label="Emporium Mall location">Emporium Mall</a>
+              <a href="#" aria-label="Johar Town location">Johar Town</a>
+              <a href="#" aria-label="Pine Avenue location">Pine Avenue</a>
+              <a href="#" aria-label="Centaurus Mall location">Centaurus Mall</a>
+              <a href="#" aria-label="F-7 location">F-7</a>
+              <a href="#" aria-label="Giga Mall location">Giga Mall</a>
+            </div>
           </div>
-          <div>
-            <h5>Business Hours</h5>
-            <div class="mini"><strong>Mon–Thurs</strong><br />12:00 pm–10:00pm</div>
-            <div class="mini" style="margin-top: 10px"><strong>Fri–Sun</strong><br />12:00 pm–10:00pm</div>
-            <div class="mini" style="margin-top: 10px"><strong>042-11-11-46939</strong></div>
+          <div class="footer-accordion">
+            <h5 class="footer-accordion-heading">
+              <button class="footer-accordion-toggle" type="button" aria-expanded="false" aria-controls="footerHours">
+                <span>Business Hours</span>
+                <span class="footer-accordion-icon" aria-hidden="true">+</span>
+              </button>
+            </h5>
+            <div class="footer-accordion-panel" id="footerHours">
+              <div class="mini"><strong>Mon–Thurs</strong><br />12:00 pm–10:00pm</div>
+              <div class="mini" style="margin-top: 10px"><strong>Fri–Sun</strong><br />12:00 pm–10:00pm</div>
+              <div class="mini" style="margin-top: 10px"><strong>042-11-11-46939</strong></div>
+            </div>
           </div>
         </div>
       </div>
@@ -2850,6 +3702,8 @@
       </div>
     </section>
   </main>
+
+  <a class="mobile-bottom-cta" href="#order" aria-label="Order Now">Order Now</a>
 
   <script>
     (function () {
@@ -2897,10 +3751,69 @@
       const heroMedia = document.querySelector(".hero .hero-media");
       const aboutSection = document.querySelector(".about");
       const aboutRiderImg = aboutSection ? aboutSection.querySelector(".about-rider img[data-src]") : null;
+      const topbar = document.querySelector(".topbar");
+      const menuToggle = topbar ? topbar.querySelector(".menu-toggle") : null;
+      const mobileMenu = topbar ? topbar.querySelector(".mobile-menu") : null;
+      const mobileMenuClose = topbar ? topbar.querySelector(".mobile-menu-close") : null;
+      const mobileBottomCta = document.querySelector(".mobile-bottom-cta");
+      const touchLayout = window.matchMedia && window.matchMedia("(max-width: 980px), (pointer: coarse)").matches;
       let heroExpansionProgress = 0;
       let heroScrollLocked = window.scrollY < 2;
       let touchStartY = null;
       let touchActive = false;
+
+      function isMobileHeader() {
+        return window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
+      }
+
+      function setMobileMenu(open) {
+        if (!topbar || !menuToggle || !mobileMenu) return;
+        const nextOpen = Boolean(open) && isMobileHeader();
+        topbar.classList.toggle("menu-open", nextOpen);
+        menuToggle.setAttribute("aria-expanded", String(nextOpen));
+        menuToggle.setAttribute("aria-label", nextOpen ? "Close menu" : "Open menu");
+        mobileMenu.hidden = !nextOpen;
+        document.body.style.overflow = nextOpen ? "hidden" : "";
+      }
+
+      function syncFloatingCta() {
+        if (!mobileBottomCta) return;
+        const shouldShow = isMobileHeader() && window.scrollY > 160 && !(topbar && topbar.classList.contains("menu-open"));
+        mobileBottomCta.classList.toggle("is-visible", shouldShow);
+      }
+
+      if (menuToggle && mobileMenu) {
+        setMobileMenu(false);
+        menuToggle.addEventListener("click", () => {
+          setMobileMenu(!topbar.classList.contains("menu-open"));
+        });
+
+        if (mobileMenuClose) {
+          mobileMenuClose.addEventListener("click", () => setMobileMenu(false));
+        }
+
+        mobileMenu.addEventListener("click", (event) => {
+          const link = event.target.closest("a");
+          if (link) setMobileMenu(false);
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!topbar.classList.contains("menu-open")) return;
+          if (topbar.contains(event.target)) return;
+          setMobileMenu(false);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") setMobileMenu(false);
+        });
+
+        window.addEventListener("resize", () => {
+          if (!isMobileHeader()) setMobileMenu(false);
+          syncFloatingCta();
+        }, { passive: true });
+        window.addEventListener("scroll", syncFloatingCta, { passive: true });
+        syncFloatingCta();
+      }
 
       function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
@@ -2922,7 +3835,6 @@
       }
 
       function releaseHeroScroll() {
-        if (!heroScrollLocked) return;
         heroScrollLocked = false;
         document.documentElement.style.overflow = "";
         document.body.style.overflow = "";
@@ -2989,7 +3901,7 @@
         }
       }
 
-      if (!reduceMotion && expandEls.length) {
+      if (!reduceMotion && expandEls.length && !touchLayout) {
         applyHeroProgress(0);
         if (heroScrollLocked) {
           document.documentElement.style.overflow = "hidden";
@@ -3006,6 +3918,9 @@
       } else {
         applyHeroProgress(1);
         releaseHeroScroll();
+        if (heroMedia) {
+          heroMedia.classList.add("in-view");
+        }
       }
 
       function updateAboutParallax() {
@@ -3241,6 +4156,24 @@
           // Treat as swipe or tap
           if (Math.abs(dx) > 26 && Math.abs(dx) > Math.abs(dy)) cycleForward();
           else if (Math.abs(dx) < 6 && Math.abs(dy) < 6) cycleForward();
+        });
+      }
+
+      const footerAccordionMedia = window.matchMedia && window.matchMedia("(max-width: 640px)");
+      const footerAccordionToggles = Array.from(document.querySelectorAll(".footer-accordion-toggle"));
+
+      function setFooterAccordion(toggle, open) {
+        const item = toggle.closest(".footer-accordion");
+        if (!item) return;
+        item.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+      }
+
+      for (const toggle of footerAccordionToggles) {
+        toggle.addEventListener("click", () => {
+          if (!footerAccordionMedia || !footerAccordionMedia.matches) return;
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          setFooterAccordion(toggle, !isOpen);
         });
       }
 
